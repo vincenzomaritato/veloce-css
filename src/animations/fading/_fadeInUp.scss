@@ -1,0 +1,25 @@
+// Fading animations – vel-fadeInUp
+// Element fades in while moving upwards using GPU-friendly transforms.
+
+@use "../../base/mixins" as m;
+@use "../../base/variables" as *;
+
+// Keyframes:
+// - Start slightly below, with zero opacity.
+// - Move to natural position while fading to full opacity.
+// Only `opacity` and `transform` are animated to avoid layout thrashing.
+@include m.vel-keyframes(velFadeInUp) {
+  from {
+    opacity: 0;
+    transform: translate3d(0, $vel-animation-translate-distance, 0);
+  }
+
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+.vel-fadeInUp {
+  @include m.vel-animation-base(velFadeInUp);
+}

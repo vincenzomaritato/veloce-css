@@ -1,0 +1,30 @@
+// Back exits – vel-backOutLeft
+// Element exits leftward with a slight backward motion.
+
+@use "../../base/mixins" as m;
+@use "../../base/variables" as *;
+
+// Keyframes:
+// - Shrinks slightly then moves left and backward.
+// - Fades out during the motion.
+@include m.vel-keyframes(velBackOutLeft) {
+  0% {
+    opacity: 1;
+    transform: scale3d(1, 1, 1);
+  }
+
+  20% {
+    transform: scale3d(0.7, 0.7, 0.7);
+  }
+
+  to {
+    opacity: 0;
+    transform: translate3d(-2000px, 0, 0) scale3d(0.7, 0.7, 0.7);
+  }
+}
+
+.vel-backOutLeft {
+  @include m.vel-animation-base(velBackOutLeft);
+  animation-timing-function: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+

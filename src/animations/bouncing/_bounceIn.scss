@@ -1,0 +1,40 @@
+// Bouncing animations – vel-bounceIn
+// Entrance animation that zooms and bounces into place.
+
+@use "../../base/mixins" as m;
+@use "../../base/variables" as *;
+
+// Keyframes:
+// - Start scaled down and transparent.
+// - Overshoot slightly, then settle back to scale(1).
+// - Animate only opacity and transform for performance.
+@include m.vel-keyframes(velBounceIn) {
+  from,
+  20%,
+  40%,
+  60%,
+  80%,
+  to {
+    opacity: 0;
+    transform: scale3d(0.3, 0.3, 0.3);
+  }
+
+  40%,
+  60% {
+    opacity: 1;
+    transform: scale3d($vel-animation-scale-overshoot, $vel-animation-scale-overshoot, $vel-animation-scale-overshoot);
+  }
+
+  80% {
+    transform: scale3d(0.95, 0.95, 0.95);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale3d(1, 1, 1);
+  }
+}
+
+.vel-bounceIn {
+  @include m.vel-animation-base(velBounceIn);
+}

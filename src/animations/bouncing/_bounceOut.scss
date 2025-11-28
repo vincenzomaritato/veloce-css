@@ -1,0 +1,27 @@
+// Bouncing exits – vel-bounceOut
+// Element bounces out with scale and opacity.
+
+@use "../../base/mixins" as m;
+@use "../../base/variables" as *;
+
+@include m.vel-keyframes(velBounceOut) {
+  20% {
+    transform: scale3d(0.9, 0.9, 0.9);
+  }
+
+  50%,
+  55% {
+    opacity: 1;
+    transform: scale3d(1.1, 1.1, 1.1);
+  }
+
+  to {
+    opacity: 0;
+    transform: scale3d(0.3, 0.3, 0.3);
+  }
+}
+
+.vel-bounceOut {
+  @include m.vel-animation-base(velBounceOut);
+}
+

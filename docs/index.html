@@ -1,0 +1,1208 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>VeloceCSS - The Modern Animation Library</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap"
+    rel="stylesheet">
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            display: ['Outfit', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace'],
+          },
+          colors: {
+            bg: '#0f172a',
+            surface: '#1e293b',
+            accent: '#f43f5e',
+            accentHover: '#e11d48',
+          },
+        }
+      }
+    }
+  </script>
+  <!-- VeloceCSS compiled bundle (built from src/veloce.scss) -->
+  <link rel="stylesheet" href="../dist/veloce.min.css">
+  <link rel="stylesheet" href="./css/style.css">
+</head>
+
+<body class="bg-bg text-slate-300 h-screen flex flex-col overflow-hidden selection:bg-accent selection:text-white">
+
+  <!-- Navbar -->
+  <nav
+    class="h-16 border-b border-slate-800 bg-[#0f172a]/80 backdrop-blur-md z-50 flex items-center justify-between px-6 shrink-0 relative transition-all">
+    <div class="flex items-center gap-4">
+      <!-- Mobile Menu Button -->
+      <button id="mobile-menu-btn" class="md:hidden p-2 text-slate-400 hover:text-white transition-colors">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+        </svg>
+      </button>
+
+      <!-- Logo Area with Hover Effect -->
+      <div class="flex items-center gap-3 group cursor-pointer select-none nav-btn-click"
+        onclick="document.querySelector('main').scrollTo({top: 0, behavior: 'smooth'})">
+        <!-- Changed bg-gradient to bg-black as requested -->
+        <div
+          class="w-9 h-9 bg-black rounded-xl flex items-center justify-center text-white font-bold font-display text-lg transform group-hover:rotate-12 group-hover:scale-110 transition-all duration-300 shadow-lg shadow-accent/20 border border-white/10">
+          <img src="./assets/logo.svg" alt="V" class="w-6 h-6 text-white" />
+        </div>
+        <span
+          class="font-display font-bold text-xl text-white tracking-tight group-hover:text-accent transition-colors">Veloce<span
+            class="text-slate-500 font-normal group-hover:text-slate-400">CSS</span></span>
+      </div>
+    </div>
+
+    <!-- Center: Quick Actions (Desktop) -->
+    <div
+      class="hidden md:flex items-center gap-1 bg-slate-900/50 p-1.5 rounded-xl border border-slate-800 shadow-inner">
+      <button onclick="copyInstall('npm')"
+        class="px-3 py-1.5 text-xs font-mono font-medium rounded-lg hover:bg-slate-800 hover:text-white transition-all nav-btn-click flex items-center gap-2 group">
+        <span class="opacity-50 group-hover:opacity-100">$</span> npm i veloce-css
+      </button>
+      <div class="w-px h-4 bg-slate-800 mx-1"></div>
+      <button onclick="copyInstall('cdn')"
+        class="px-3 py-1.5 text-xs font-mono font-medium rounded-lg hover:bg-slate-800 hover:text-white transition-all nav-btn-click group">
+        CDN Link
+      </button>
+    </div>
+
+    <div class="flex items-center gap-4">
+      <a href="#docs" onclick="document.getElementById('docs').scrollIntoView({behavior: 'smooth'})"
+        class="hidden md:block text-sm font-bold text-slate-300 hover:text-white transition-colors relative group py-1">
+        Documentation
+        <span
+          class="absolute bottom-0 left-0 w-0 h-0.5 bg-accent transition-all duration-300 group-hover:w-full"></span>
+      </a>
+      <a href="https://github.com" target="_blank"
+        class="text-slate-400 hover:text-white transition-colors p-2 hover:bg-slate-800 rounded-full nav-btn-click">
+        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+          <path
+            d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
+        </svg>
+      </a>
+    </div>
+
+    <!-- Toast Notification (Improved) -->
+    <div id="toast"
+      class="absolute top-24 right-8 bg-surface border border-slate-700/50 text-white px-5 py-3 rounded-xl shadow-2xl shadow-black/50 transform translate-x-20 opacity-0 transition-all duration-300 pointer-events-none z-[60] flex items-center gap-3 backdrop-blur-md">
+      <div class="w-6 h-6 rounded-full bg-green-500/20 flex items-center justify-center text-green-400">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+        </svg>
+      </div>
+      <div class="flex flex-col">
+        <span class="text-sm font-bold leading-none mb-1">Success!</span>
+        <span class="text-xs text-slate-400 font-mono" id="toast-msg">Copied to clipboard</span>
+      </div>
+    </div>
+  </nav>
+
+  <div class="flex flex-1 overflow-hidden relative">
+
+    <!-- Mobile Overlay -->
+    <div id="sidebar-overlay"
+      class="fixed inset-0 bg-black/50 backdrop-blur-sm z-30 hidden opacity-0 transition-opacity duration-300 md:hidden">
+    </div>
+
+    <!-- SIDEBAR: Search & Categories -->
+    <!-- Added mobile responsive classes: fixed, translate-x logic, z-index -->
+    <aside id="sidebar"
+      class="w-72 border-r border-slate-800 bg-[#0f172a] flex flex-col z-40 fixed md:sticky top-0 h-full -translate-x-full md:translate-x-0 transition-transform duration-300">
+
+      <!-- Search Bar (Styled) -->
+      <div class="p-4 border-b border-slate-800 bg-[#0f172a] z-10">
+        <div class="relative search-group group">
+          <input type="text" id="search-input" placeholder="Search animations..."
+            class="w-full bg-slate-900 border border-slate-700 rounded-xl pl-10 pr-4 py-2.5 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-accent focus:ring-1 focus:ring-accent transition-all shadow-sm group-hover:border-slate-600">
+          <svg class="w-4 h-4 text-slate-500 absolute left-3.5 top-3 transition-colors duration-300" fill="none"
+            stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+          </svg>
+        </div>
+      </div>
+
+      <!-- List -->
+      <div class="flex-1 overflow-y-auto custom-scroll p-4 space-y-6" id="anim-list">
+
+        <!-- Category: Attention Seekers (OPEN BY DEFAULT) -->
+        <div class="anim-category group">
+          <h3
+            class="text-[10px] font-bold text-accent uppercase tracking-wider mb-2 flex items-center gap-2 cursor-pointer hover:text-white transition-colors select-none"
+            onclick="toggleCategory(this)">
+            <div class="p-1 rounded bg-accent/10 group-hover:bg-accent/20 transition-colors">
+              <!-- Rotated 90deg by default -->
+              <svg class="w-3 h-3 transition-transform duration-300 rotate-90" fill="none" stroke="currentColor"
+                viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+              </svg>
+            </div>
+            Attention Seekers
+          </h3>
+          <!-- Removed max-h-0, added style max-height for default open -->
+          <div class="space-y-1 pl-1 border-l-2 border-slate-800/50 transition-all duration-300 overflow-hidden pb-2">
+            <button class="anim-btn sidebar-item w-full text-left px-3 py-2 rounded-lg text-sm text-slate-400"
+              data-anim="vel-bounce">Bounce</button>
+            <button class="anim-btn sidebar-item w-full text-left px-3 py-2 rounded-lg text-sm text-slate-400"
+              data-anim="vel-pulse">Pulse</button>
+            <button class="anim-btn sidebar-item w-full text-left px-3 py-2 rounded-lg text-sm text-slate-400"
+              data-anim="vel-pulseSlow">Pulse Slow</button>
+            <button class="anim-btn sidebar-item w-full text-left px-3 py-2 rounded-lg text-sm text-slate-400"
+              data-anim="vel-pulseFast">Pulse Fast</button>
+            <button class="anim-btn sidebar-item w-full text-left px-3 py-2 rounded-lg text-sm text-slate-400"
+              data-anim="vel-shakeX">Shake X</button>
+            <button class="anim-btn sidebar-item w-full text-left px-3 py-2 rounded-lg text-sm text-slate-400"
+              data-anim="vel-shakeY">Shake Y</button>
+            <button class="anim-btn sidebar-item w-full text-left px-3 py-2 rounded-lg text-sm text-slate-400"
+              data-anim="vel-headShake">Head Shake</button>
+            <button class="anim-btn sidebar-item w-full text-left px-3 py-2 rounded-lg text-sm text-slate-400"
+              data-anim="vel-rubberBand">Rubber Band</button>
+            <button class="anim-btn sidebar-item w-full text-left px-3 py-2 rounded-lg text-sm text-slate-400"
+              data-anim="vel-wobble">Wobble</button>
+            <button class="anim-btn sidebar-item w-full text-left px-3 py-2 rounded-lg text-sm text-slate-400"
+              data-anim="vel-flash">Flash</button>
+            <button class="anim-btn sidebar-item w-full text-left px-3 py-2 rounded-lg text-sm text-slate-400"
+              data-anim="vel-swing">Swing</button>
+            <button class="anim-btn sidebar-item w-full text-left px-3 py-2 rounded-lg text-sm text-slate-400"
+              data-anim="vel-tada">Tada</button>
+            <button class="anim-btn sidebar-item w-full text-left px-3 py-2 rounded-lg text-sm text-slate-400"
+              data-anim="vel-jello">Jello</button>
+            <button class="anim-btn sidebar-item w-full text-left px-3 py-2 rounded-lg text-sm text-slate-400"
+              data-anim="vel-heartBeat">Heart Beat</button>
+            <button class="anim-btn sidebar-item w-full text-left px-3 py-2 rounded-lg text-sm text-slate-400"
+              data-anim="vel-hinge">Hinge</button>
+          </div>
+        </div>
+
+        <!-- Category: Fading Entrances (OPEN BY DEFAULT) -->
+        <div class="anim-category group">
+          <h3
+            class="text-[10px] font-bold text-accent uppercase tracking-wider mb-2 flex items-center gap-2 cursor-pointer hover:text-white transition-colors select-none"
+            onclick="toggleCategory(this)">
+            <div class="p-1 rounded bg-accent/10 group-hover:bg-accent/20 transition-colors">
+              <svg class="w-3 h-3 transition-transform duration-300 rotate-90" fill="none" stroke="currentColor"
+                viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+              </svg>
+            </div>
+            Fading Entrances
+          </h3>
+          <div class="space-y-1 pl-1 border-l-2 border-slate-800/50 transition-all duration-300 overflow-hidden pb-2">
+            <button class="anim-btn sidebar-item w-full text-left px-3 py-2 rounded-lg text-sm text-slate-400"
+              data-anim="vel-fadeIn">Fade In</button>
+            <button class="anim-btn sidebar-item w-full text-left px-3 py-2 rounded-lg text-sm text-slate-400"
+              data-anim="vel-fadeInUp">Fade In Up</button>
+            <button class="anim-btn sidebar-item w-full text-left px-3 py-2 rounded-lg text-sm text-slate-400"
+              data-anim="vel-fadeInDown">Fade In Down</button>
+            <button class="anim-btn sidebar-item w-full text-left px-3 py-2 rounded-lg text-sm text-slate-400"
+              data-anim="vel-fadeInLeft">Fade In Left</button>
+            <button class="anim-btn sidebar-item w-full text-left px-3 py-2 rounded-lg text-sm text-slate-400"
+              data-anim="vel-fadeInRight">Fade In Right</button>
+            <button class="anim-btn sidebar-item w-full text-left px-3 py-2 rounded-lg text-sm text-slate-400"
+              data-anim="vel-fadeInUpBig">Fade In Up Big</button>
+            <button class="anim-btn sidebar-item w-full text-left px-3 py-2 rounded-lg text-sm text-slate-400"
+              data-anim="vel-fadeInDownBig">Fade In Down Big</button>
+            <button class="anim-btn sidebar-item w-full text-left px-3 py-2 rounded-lg text-sm text-slate-400"
+              data-anim="vel-fadeInLeftBig">Fade In Left Big</button>
+            <button class="anim-btn sidebar-item w-full text-left px-3 py-2 rounded-lg text-sm text-slate-400"
+              data-anim="vel-fadeInRightBig">Fade In Right Big</button>
+            <button class="anim-btn sidebar-item w-full text-left px-3 py-2 rounded-lg text-sm text-slate-400"
+              data-anim="vel-fadeInTopLeft">Fade In Top Left</button>
+            <button class="anim-btn sidebar-item w-full text-left px-3 py-2 rounded-lg text-sm text-slate-400"
+              data-anim="vel-fadeInTopRight">Fade In Top Right</button>
+            <button class="anim-btn sidebar-item w-full text-left px-3 py-2 rounded-lg text-sm text-slate-400"
+              data-anim="vel-fadeInBottomLeft">Fade In Bottom Left</button>
+            <button class="anim-btn sidebar-item w-full text-left px-3 py-2 rounded-lg text-sm text-slate-400"
+              data-anim="vel-fadeInBottomRight">Fade In Bottom Right</button>
+          </div>
+        </div>
+
+        <!-- Category: Bouncing (OPEN BY DEFAULT) -->
+        <div class="anim-category group">
+          <h3
+            class="text-[10px] font-bold text-accent uppercase tracking-wider mb-2 flex items-center gap-2 cursor-pointer hover:text-white transition-colors select-none"
+            onclick="toggleCategory(this)">
+            <div class="p-1 rounded bg-accent/10 group-hover:bg-accent/20 transition-colors">
+              <svg class="w-3 h-3 transition-transform duration-300 rotate-90" fill="none" stroke="currentColor"
+                viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+              </svg>
+            </div>
+            Bouncing
+          </h3>
+          <div class="space-y-1 pl-1 border-l-2 border-slate-800/50 transition-all duration-300 overflow-hidden pb-2">
+            <button class="anim-btn sidebar-item w-full text-left px-3 py-2 rounded-lg text-sm text-slate-400"
+              data-anim="vel-bounce">Bounce</button>
+            <button class="anim-btn sidebar-item w-full text-left px-3 py-2 rounded-lg text-sm text-slate-400"
+              data-anim="vel-bounceIn">Bounce In</button>
+            <button class="anim-btn sidebar-item w-full text-left px-3 py-2 rounded-lg text-sm text-slate-400"
+              data-anim="vel-bounceInDown">Bounce In Down</button>
+            <button class="anim-btn sidebar-item w-full text-left px-3 py-2 rounded-lg text-sm text-slate-400"
+              data-anim="vel-bounceInLeft">Bounce In Left</button>
+            <button class="anim-btn sidebar-item w-full text-left px-3 py-2 rounded-lg text-sm text-slate-400"
+              data-anim="vel-bounceInRight">Bounce In Right</button>
+            <button class="anim-btn sidebar-item w-full text-left px-3 py-2 rounded-lg text-sm text-slate-400"
+              data-anim="vel-bounceInUp">Bounce In Up</button>
+            <button class="anim-btn sidebar-item w-full text-left px-3 py-2 rounded-lg text-sm text-slate-400"
+              data-anim="vel-bounceOut">Bounce Out</button>
+            <button class="anim-btn sidebar-item w-full text-left px-3 py-2 rounded-lg text-sm text-slate-400"
+              data-anim="vel-bounceOutDown">Bounce Out Down</button>
+            <button class="anim-btn sidebar-item w-full text-left px-3 py-2 rounded-lg text-sm text-slate-400"
+              data-anim="vel-bounceOutLeft">Bounce Out Left</button>
+            <button class="anim-btn sidebar-item w-full text-left px-3 py-2 rounded-lg text-sm text-slate-400"
+              data-anim="vel-bounceOutRight">Bounce Out Right</button>
+            <button class="anim-btn sidebar-item w-full text-left px-3 py-2 rounded-lg text-sm text-slate-400"
+              data-anim="vel-bounceOutUp">Bounce Out Up</button>
+          </div>
+        </div>
+
+        <!-- Category: Zooming (OPEN BY DEFAULT) -->
+        <div class="anim-category group">
+          <h3
+            class="text-[10px] font-bold text-accent uppercase tracking-wider mb-2 flex items-center gap-2 cursor-pointer hover:text-white transition-colors select-none"
+            onclick="toggleCategory(this)">
+            <div class="p-1 rounded bg-accent/10 group-hover:bg-accent/20 transition-colors">
+              <svg class="w-3 h-3 transition-transform duration-300 rotate-90" fill="none" stroke="currentColor"
+                viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+              </svg>
+            </div>
+            Zooming
+          </h3>
+          <div class="space-y-1 pl-1 border-l-2 border-slate-800/50 transition-all duration-300 overflow-hidden pb-2">
+            <button class="anim-btn sidebar-item w-full text-left px-3 py-2 rounded-lg text-sm text-slate-400"
+              data-anim="vel-zoomIn">Zoom In</button>
+            <button class="anim-btn sidebar-item w-full text-left px-3 py-2 rounded-lg text-sm text-slate-400"
+              data-anim="vel-zoomInDown">Zoom In Down</button>
+            <button class="anim-btn sidebar-item w-full text-left px-3 py-2 rounded-lg text-sm text-slate-400"
+              data-anim="vel-zoomInLeft">Zoom In Left</button>
+            <button class="anim-btn sidebar-item w-full text-left px-3 py-2 rounded-lg text-sm text-slate-400"
+              data-anim="vel-zoomInRight">Zoom In Right</button>
+            <button class="anim-btn sidebar-item w-full text-left px-3 py-2 rounded-lg text-sm text-slate-400"
+              data-anim="vel-zoomInUp">Zoom In Up</button>
+            <button class="anim-btn sidebar-item w-full text-left px-3 py-2 rounded-lg text-sm text-slate-400"
+              data-anim="vel-zoomOut">Zoom Out</button>
+            <button class="anim-btn sidebar-item w-full text-left px-3 py-2 rounded-lg text-sm text-slate-400"
+              data-anim="vel-zoomOutDown">Zoom Out Down</button>
+            <button class="anim-btn sidebar-item w-full text-left px-3 py-2 rounded-lg text-sm text-slate-400"
+              data-anim="vel-zoomOutLeft">Zoom Out Left</button>
+            <button class="anim-btn sidebar-item w-full text-left px-3 py-2 rounded-lg text-sm text-slate-400"
+              data-anim="vel-zoomOutRight">Zoom Out Right</button>
+            <button class="anim-btn sidebar-item w-full text-left px-3 py-2 rounded-lg text-sm text-slate-400"
+              data-anim="vel-zoomOutUp">Zoom Out Up</button>
+          </div>
+        </div>
+
+        <!-- Category: Modern Blurring (2025 Trend) -->
+        <div class="anim-category group">
+          <h3
+            class="text-[10px] font-bold text-accent uppercase tracking-wider mb-2 flex items-center gap-2 cursor-pointer hover:text-white transition-colors select-none"
+            onclick="toggleCategory(this)">
+            <div class="p-1 rounded bg-accent/10 group-hover:bg-accent/20 transition-colors">
+              <svg class="w-3 h-3 transition-transform duration-300 rotate-90" fill="none" stroke="currentColor"
+                viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+              </svg>
+            </div>
+            Modern Blurring ⭐
+          </h3>
+          <div class="space-y-1 pl-1 border-l-2 border-slate-800/50 transition-all duration-300 overflow-hidden pb-2">
+            <button class="anim-btn sidebar-item w-full text-left px-3 py-2 rounded-lg text-sm text-slate-400"
+              data-anim="vel-blurIn">Blur In</button>
+            <button class="anim-btn sidebar-item w-full text-left px-3 py-2 rounded-lg text-sm text-slate-400"
+              data-anim="vel-blurInUp">Blur In Up</button>
+            <button class="anim-btn sidebar-item w-full text-left px-3 py-2 rounded-lg text-sm text-slate-400"
+              data-anim="vel-blurOut">Blur Out</button>
+          </div>
+        </div>
+
+        <!-- Category: Text Reveals -->
+        <div class="anim-category group">
+          <h3
+            class="text-[10px] font-bold text-accent uppercase tracking-wider mb-2 flex items-center gap-2 cursor-pointer hover:text-white transition-colors select-none"
+            onclick="toggleCategory(this)">
+            <div class="p-1 rounded bg-accent/10 group-hover:bg-accent/20 transition-colors">
+              <svg class="w-3 h-3 transition-transform duration-300 rotate-90" fill="none" stroke="currentColor"
+                viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+              </svg>
+            </div>
+            Text Reveals
+          </h3>
+          <div class="space-y-1 pl-1 border-l-2 border-slate-800/50 transition-all duration-300 overflow-hidden pb-2">
+            <button class="anim-btn sidebar-item w-full text-left px-3 py-2 rounded-lg text-sm text-slate-400"
+              data-anim="vel-textRevealUp">Text Reveal Up</button>
+            <button class="anim-btn sidebar-item w-full text-left px-3 py-2 rounded-lg text-sm text-slate-400"
+              data-anim="vel-textRevealDown">Text Reveal Down</button>
+            <button class="anim-btn sidebar-item w-full text-left px-3 py-2 rounded-lg text-sm text-slate-400"
+              data-anim="vel-textRevealLeft">Text Reveal Left</button>
+          </div>
+        </div>
+
+        <!-- Category: 3D Effects -->
+        <div class="anim-category group">
+          <h3
+            class="text-[10px] font-bold text-accent uppercase tracking-wider mb-2 flex items-center gap-2 cursor-pointer hover:text-white transition-colors select-none"
+            onclick="toggleCategory(this)">
+            <div class="p-1 rounded bg-accent/10 group-hover:bg-accent/20 transition-colors">
+              <svg class="w-3 h-3 transition-transform duration-300 rotate-90" fill="none" stroke="currentColor"
+                viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+              </svg>
+            </div>
+            3D Effects
+          </h3>
+          <div class="space-y-1 pl-1 border-l-2 border-slate-800/50 transition-all duration-300 overflow-hidden pb-2">
+            <button class="anim-btn sidebar-item w-full text-left px-3 py-2 rounded-lg text-sm text-slate-400"
+              data-anim="vel-flipIn3D">Flip In 3D</button>
+          </div>
+        </div>
+
+        <!-- Category: Specials (OPEN BY DEFAULT) -->
+        <div class="anim-category group">
+          <h3
+            class="text-[10px] font-bold text-accent uppercase tracking-wider mb-2 flex items-center gap-2 cursor-pointer hover:text-white transition-colors select-none"
+            onclick="toggleCategory(this)">
+            <div class="p-1 rounded bg-accent/10 group-hover:bg-accent/20 transition-colors">
+              <svg class="w-3 h-3 transition-transform duration-300 rotate-90" fill="none" stroke="currentColor"
+                viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+              </svg>
+            </div>
+            Specials
+          </h3>
+          <div class="space-y-1 pl-1 border-l-2 border-slate-800/50 transition-all duration-300 overflow-hidden pb-2">
+            <button class="anim-btn sidebar-item w-full text-left px-3 py-2 rounded-lg text-sm text-slate-400"
+              data-anim="vel-swoosh">Swoosh ⚡</button>
+            <button class="anim-btn sidebar-item w-full text-left px-3 py-2 rounded-lg text-sm text-slate-400"
+              data-anim="vel-jackInTheBox">Jack In The Box</button>
+            <button class="anim-btn sidebar-item w-full text-left px-3 py-2 rounded-lg text-sm text-slate-400"
+              data-anim="vel-rollIn">Roll In</button>
+            <button class="anim-btn sidebar-item w-full text-left px-3 py-2 rounded-lg text-sm text-slate-400"
+              data-anim="vel-rollOut">Roll Out</button>
+            <button class="anim-btn sidebar-item w-full text-left px-3 py-2 rounded-lg text-sm text-slate-400"
+              data-anim="vel-hinge">Hinge</button>
+          </div>
+        </div>
+
+        <!-- Category: Fading Exits -->
+        <div class="anim-category group">
+          <h3
+            class="text-[10px] font-bold text-accent uppercase tracking-wider mb-2 flex items-center gap-2 cursor-pointer hover:text-white transition-colors select-none"
+            onclick="toggleCategory(this)">
+            <div class="p-1 rounded bg-accent/10 group-hover:bg-accent/20 transition-colors">
+              <svg class="w-3 h-3 transition-transform duration-300 rotate-90" fill="none" stroke="currentColor"
+                viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+              </svg>
+            </div>
+            Fading Exits
+          </h3>
+          <div class="space-y-1 pl-1 border-l-2 border-slate-800/50 transition-all duration-300 overflow-hidden pb-2">
+            <button class="anim-btn sidebar-item w-full text-left px-3 py-2 rounded-lg text-sm text-slate-400"
+              data-anim="vel-fadeOut">Fade Out</button>
+            <button class="anim-btn sidebar-item w-full text-left px-3 py-2 rounded-lg text-sm text-slate-400"
+              data-anim="vel-fadeOutUp">Fade Out Up</button>
+            <button class="anim-btn sidebar-item w-full text-left px-3 py-2 rounded-lg text-sm text-slate-400"
+              data-anim="vel-fadeOutDown">Fade Out Down</button>
+            <button class="anim-btn sidebar-item w-full text-left px-3 py-2 rounded-lg text-sm text-slate-400"
+              data-anim="vel-fadeOutLeft">Fade Out Left</button>
+            <button class="anim-btn sidebar-item w-full text-left px-3 py-2 rounded-lg text-sm text-slate-400"
+              data-anim="vel-fadeOutRight">Fade Out Right</button>
+            <button class="anim-btn sidebar-item w-full text-left px-3 py-2 rounded-lg text-sm text-slate-400"
+              data-anim="vel-fadeOutUpBig">Fade Out Up Big</button>
+            <button class="anim-btn sidebar-item w-full text-left px-3 py-2 rounded-lg text-sm text-slate-400"
+              data-anim="vel-fadeOutDownBig">Fade Out Down Big</button>
+            <button class="anim-btn sidebar-item w-full text-left px-3 py-2 rounded-lg text-sm text-slate-400"
+              data-anim="vel-fadeOutLeftBig">Fade Out Left Big</button>
+            <button class="anim-btn sidebar-item w-full text-left px-3 py-2 rounded-lg text-sm text-slate-400"
+              data-anim="vel-fadeOutRightBig">Fade Out Right Big</button>
+            <button class="anim-btn sidebar-item w-full text-left px-3 py-2 rounded-lg text-sm text-slate-400"
+              data-anim="vel-fadeOutTopLeft">Fade Out Top Left</button>
+            <button class="anim-btn sidebar-item w-full text-left px-3 py-2 rounded-lg text-sm text-slate-400"
+              data-anim="vel-fadeOutTopRight">Fade Out Top Right</button>
+            <button class="anim-btn sidebar-item w-full text-left px-3 py-2 rounded-lg text-sm text-slate-400"
+              data-anim="vel-fadeOutBottomLeft">Fade Out Bottom Left</button>
+            <button class="anim-btn sidebar-item w-full text-left px-3 py-2 rounded-lg text-sm text-slate-400"
+              data-anim="vel-fadeOutBottomRight">Fade Out Bottom Right</button>
+          </div>
+        </div>
+
+        <!-- Category: Back -->
+        <div class="anim-category group">
+          <h3
+            class="text-[10px] font-bold text-accent uppercase tracking-wider mb-2 flex items-center gap-2 cursor-pointer hover:text-white transition-colors select-none"
+            onclick="toggleCategory(this)">
+            <div class="p-1 rounded bg-accent/10 group-hover:bg-accent/20 transition-colors">
+              <svg class="w-3 h-3 transition-transform duration-300 rotate-90" fill="none" stroke="currentColor"
+                viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+              </svg>
+            </div>
+            Back
+          </h3>
+          <div class="space-y-1 pl-1 border-l-2 border-slate-800/50 transition-all duration-300 overflow-hidden pb-2">
+            <button class="anim-btn sidebar-item w-full text-left px-3 py-2 rounded-lg text-sm text-slate-400"
+              data-anim="vel-backInDown">Back In Down</button>
+            <button class="anim-btn sidebar-item w-full text-left px-3 py-2 rounded-lg text-sm text-slate-400"
+              data-anim="vel-backInLeft">Back In Left</button>
+            <button class="anim-btn sidebar-item w-full text-left px-3 py-2 rounded-lg text-sm text-slate-400"
+              data-anim="vel-backInRight">Back In Right</button>
+            <button class="anim-btn sidebar-item w-full text-left px-3 py-2 rounded-lg text-sm text-slate-400"
+              data-anim="vel-backInUp">Back In Up</button>
+            <button class="anim-btn sidebar-item w-full text-left px-3 py-2 rounded-lg text-sm text-slate-400"
+              data-anim="vel-backOutDown">Back Out Down</button>
+            <button class="anim-btn sidebar-item w-full text-left px-3 py-2 rounded-lg text-sm text-slate-400"
+              data-anim="vel-backOutLeft">Back Out Left</button>
+            <button class="anim-btn sidebar-item w-full text-left px-3 py-2 rounded-lg text-sm text-slate-400"
+              data-anim="vel-backOutRight">Back Out Right</button>
+            <button class="anim-btn sidebar-item w-full text-left px-3 py-2 rounded-lg text-sm text-slate-400"
+              data-anim="vel-backOutUp">Back Out Up</button>
+          </div>
+        </div>
+
+        <!-- Category: Flippers -->
+        <div class="anim-category group">
+          <h3
+            class="text-[10px] font-bold text-accent uppercase tracking-wider mb-2 flex items-center gap-2 cursor-pointer hover:text-white transition-colors select-none"
+            onclick="toggleCategory(this)">
+            <div class="p-1 rounded bg-accent/10 group-hover:bg-accent/20 transition-colors">
+              <svg class="w-3 h-3 transition-transform duration-300 rotate-90" fill="none" stroke="currentColor"
+                viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+              </svg>
+            </div>
+            Flippers
+          </h3>
+          <div class="space-y-1 pl-1 border-l-2 border-slate-800/50 transition-all duration-300 overflow-hidden pb-2">
+            <button class="anim-btn sidebar-item w-full text-left px-3 py-2 rounded-lg text-sm text-slate-400"
+              data-anim="vel-flip">Flip</button>
+            <button class="anim-btn sidebar-item w-full text-left px-3 py-2 rounded-lg text-sm text-slate-400"
+              data-anim="vel-flipInX">Flip In X</button>
+            <button class="anim-btn sidebar-item w-full text-left px-3 py-2 rounded-lg text-sm text-slate-400"
+              data-anim="vel-flipInY">Flip In Y</button>
+            <button class="anim-btn sidebar-item w-full text-left px-3 py-2 rounded-lg text-sm text-slate-400"
+              data-anim="vel-flipOutX">Flip Out X</button>
+            <button class="anim-btn sidebar-item w-full text-left px-3 py-2 rounded-lg text-sm text-slate-400"
+              data-anim="vel-flipOutY">Flip Out Y</button>
+          </div>
+        </div>
+
+        <!-- Category: Rotating -->
+        <div class="anim-category group">
+          <h3
+            class="text-[10px] font-bold text-accent uppercase tracking-wider mb-2 flex items-center gap-2 cursor-pointer hover:text-white transition-colors select-none"
+            onclick="toggleCategory(this)">
+            <div class="p-1 rounded bg-accent/10 group-hover:bg-accent/20 transition-colors">
+              <svg class="w-3 h-3 transition-transform duration-300 rotate-90" fill="none" stroke="currentColor"
+                viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+              </svg>
+            </div>
+            Rotating
+          </h3>
+          <div class="space-y-1 pl-1 border-l-2 border-slate-800/50 transition-all duration-300 overflow-hidden pb-2">
+            <button class="anim-btn sidebar-item w-full text-left px-3 py-2 rounded-lg text-sm text-slate-400"
+              data-anim="vel-rotateIn">Rotate In</button>
+            <button class="anim-btn sidebar-item w-full text-left px-3 py-2 rounded-lg text-sm text-slate-400"
+              data-anim="vel-rotateInDownLeft">Rotate In Down Left</button>
+            <button class="anim-btn sidebar-item w-full text-left px-3 py-2 rounded-lg text-sm text-slate-400"
+              data-anim="vel-rotateInDownRight">Rotate In Down Right</button>
+            <button class="anim-btn sidebar-item w-full text-left px-3 py-2 rounded-lg text-sm text-slate-400"
+              data-anim="vel-rotateInUpLeft">Rotate In Up Left</button>
+            <button class="anim-btn sidebar-item w-full text-left px-3 py-2 rounded-lg text-sm text-slate-400"
+              data-anim="vel-rotateInUpRight">Rotate In Up Right</button>
+            <button class="anim-btn sidebar-item w-full text-left px-3 py-2 rounded-lg text-sm text-slate-400"
+              data-anim="vel-rotateOut">Rotate Out</button>
+            <button class="anim-btn sidebar-item w-full text-left px-3 py-2 rounded-lg text-sm text-slate-400"
+              data-anim="vel-rotateOutDownLeft">Rotate Out Down Left</button>
+            <button class="anim-btn sidebar-item w-full text-left px-3 py-2 rounded-lg text-sm text-slate-400"
+              data-anim="vel-rotateOutDownRight">Rotate Out Down Right</button>
+            <button class="anim-btn sidebar-item w-full text-left px-3 py-2 rounded-lg text-sm text-slate-400"
+              data-anim="vel-rotateOutUpLeft">Rotate Out Up Left</button>
+            <button class="anim-btn sidebar-item w-full text-left px-3 py-2 rounded-lg text-sm text-slate-400"
+              data-anim="vel-rotateOutUpRight">Rotate Out Up Right</button>
+          </div>
+        </div>
+
+        <!-- Category: Sliding -->
+        <div class="anim-category group">
+          <h3
+            class="text-[10px] font-bold text-accent uppercase tracking-wider mb-2 flex items-center gap-2 cursor-pointer hover:text-white transition-colors select-none"
+            onclick="toggleCategory(this)">
+            <div class="p-1 rounded bg-accent/10 group-hover:bg-accent/20 transition-colors">
+              <svg class="w-3 h-3 transition-transform duration-300 rotate-90" fill="none" stroke="currentColor"
+                viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+              </svg>
+            </div>
+            Sliding
+          </h3>
+          <div class="space-y-1 pl-1 border-l-2 border-slate-800/50 transition-all duration-300 overflow-hidden pb-2">
+            <button class="anim-btn sidebar-item w-full text-left px-3 py-2 rounded-lg text-sm text-slate-400"
+              data-anim="vel-slideInDown">Slide In Down</button>
+            <button class="anim-btn sidebar-item w-full text-left px-3 py-2 rounded-lg text-sm text-slate-400"
+              data-anim="vel-slideInLeft">Slide In Left</button>
+            <button class="anim-btn sidebar-item w-full text-left px-3 py-2 rounded-lg text-sm text-slate-400"
+              data-anim="vel-slideInRight">Slide In Right</button>
+            <button class="anim-btn sidebar-item w-full text-left px-3 py-2 rounded-lg text-sm text-slate-400"
+              data-anim="vel-slideInUp">Slide In Up</button>
+            <button class="anim-btn sidebar-item w-full text-left px-3 py-2 rounded-lg text-sm text-slate-400"
+              data-anim="vel-slideOutDown">Slide Out Down</button>
+            <button class="anim-btn sidebar-item w-full text-left px-3 py-2 rounded-lg text-sm text-slate-400"
+              data-anim="vel-slideOutLeft">Slide Out Left</button>
+            <button class="anim-btn sidebar-item w-full text-left px-3 py-2 rounded-lg text-sm text-slate-400"
+              data-anim="vel-slideOutRight">Slide Out Right</button>
+            <button class="anim-btn sidebar-item w-full text-left px-3 py-2 rounded-lg text-sm text-slate-400"
+              data-anim="vel-slideOutUp">Slide Out Up</button>
+          </div>
+        </div>
+
+      </div>
+    </aside>
+
+    <!-- Main Content (Scrollable) -->
+    <main class="flex-1 overflow-y-auto custom-scroll relative bg-slate-900 scroll-smooth">
+
+      <!-- SECTION 1: PLAYGROUND STAGE -->
+      <div class="min-h-[calc(100vh-4rem)] flex flex-col">
+        <!-- Stage -->
+        <div
+          class="flex-1 flex flex-col items-center justify-center relative p-4 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-slate-800 via-slate-900 to-bg">
+          <!-- Ambient Animation Blob -->
+          <div
+            class="absolute top-1/4 left-1/2 -translate-x-1/2 w-96 h-96 bg-accent/10 rounded-full blur-3xl animate-blob pointer-events-none">
+          </div>
+
+          <!-- Background Grid -->
+          <div class="absolute inset-0 z-0 opacity-[0.03] pointer-events-none"
+            style="background-image: linear-gradient(#fff 1px, transparent 1px), linear-gradient(90deg, #fff 1px, transparent 1px); background-size: 60px 60px;">
+          </div>
+
+          <!-- The Target Element -->
+          <div class="z-10 text-center">
+            <div id="anim-target"
+              class="w-48 h-48 bg-gradient-to-br from-surface to-slate-800 rounded-3xl border border-white/10 shadow-2xl flex flex-col items-center justify-center group cursor-pointer hover:border-accent/50 transition-all duration-300 relative overflow-hidden active:scale-95">
+              <!-- Logo in center -->
+              <!-- Changed bg-accent to bg-black as requested -->
+              <div
+                class="w-16 h-16 bg-black rounded-2xl flex items-center justify-center text-white text-3xl font-display font-bold shadow-lg shadow-accent/20 mb-3 z-10 transition-transform duration-500 group-hover:rotate-[360deg]">
+                <img src="./assets/logo.svg" alt="V" class="w-10 h-10 text-white" />
+              </div>
+              <span class="text-white font-display font-bold z-10 tracking-tight">VeloceCSS</span>
+              <!-- Shine effect -->
+              <div
+                class="absolute inset-0 bg-gradient-to-tr from-white/0 via-white/5 to-white/0 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000 ease-in-out">
+              </div>
+            </div>
+            <p class="mt-8 text-slate-500 text-xs font-mono uppercase tracking-widest animate-pulse opacity-70">Click to
+              Replay</p>
+          </div>
+
+          <div
+            class="absolute bottom-8 text-slate-500 text-sm flex flex-col items-center gap-2 opacity-50 hover:opacity-100 transition-opacity cursor-pointer"
+            onclick="document.getElementById('docs').scrollIntoView({behavior: 'smooth'})">
+            <span class="text-xs uppercase tracking-wider font-bold">Documentation</span>
+            <svg class="w-5 h-5 animate-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+            </svg>
+          </div>
+        </div>
+
+        <!-- CONFIGURATION PANEL (Fixed bottom of first section) -->
+        <div class="bg-[#0b1120] border-t border-slate-800 p-6 z-20 shadow-[0_-10px_40px_rgba(0,0,0,0.3)]">
+          <div class="max-w-5xl mx-auto flex flex-col md:flex-row gap-8 items-start justify-between">
+            <!-- Left: Code & Copy -->
+            <div class="flex-1 w-full">
+              <div class="flex justify-between items-center mb-2">
+                <span class="text-[10px] font-bold text-slate-500 uppercase tracking-widest">HTML Usage</span>
+              </div>
+              <div
+                class="bg-surface border border-slate-700 rounded-xl p-4 flex items-center justify-between group hover:border-slate-600 transition-colors shadow-inner">
+                <code class="font-mono text-sm text-slate-300 overflow-hidden text-ellipsis whitespace-nowrap">
+                                    &lt;div class="<span class="text-purple-400">vel-animated</span> <span class="text-accent font-bold underline decoration-dotted underline-offset-4" id="display-class">vel-bounce</span>"&gt;&lt;/div&gt;
+                                </code>
+                <button onclick="copyCode()"
+                  class="ml-4 p-2 text-slate-400 hover:text-white hover:bg-white/10 rounded-lg transition-all nav-btn-click"
+                  title="Copy Class">
+                  <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                      d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
+                  </svg>
+                </button>
+              </div>
+            </div>
+
+            <!-- Right: Sliders & Settings -->
+            <div class="w-full md:w-96 space-y-5">
+              <!-- Duration Slider -->
+              <div class="group">
+                <div class="flex justify-between text-xs mb-2">
+                  <span class="text-slate-400 font-bold uppercase tracking-wider text-[10px]">Duration</span>
+                  <span
+                    class="text-white font-mono bg-slate-800 px-2 py-0.5 rounded text-[10px] border border-slate-700 group-hover:border-accent/50 transition-colors"
+                    id="duration-val">1.0s</span>
+                </div>
+                <input type="range" min="0.1" max="3" step="0.1" value="1" id="duration-slider">
+              </div>
+
+              <!-- A11y Toggle -->
+              <div class="flex items-center justify-between pt-2 border-t border-slate-800/50">
+                <span class="text-xs text-slate-400 font-medium flex items-center gap-1.5"
+                  title="Disables animations for users with vestibular disorders">
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                      d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z" />
+                  </svg>
+                  Reduced Motion Simulator
+                </span>
+                <button id="motion-toggle"
+                  class="w-11 h-6 bg-slate-700 rounded-full relative transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-slate-900 focus:ring-accent nav-btn-click"
+                  onclick="toggleMotion()">
+                  <div
+                    class="w-4 h-4 bg-white rounded-full absolute top-1 left-1 transition-transform duration-200 shadow-sm"
+                    id="motion-knob"></div>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SECTION 2: DOCUMENTATION -->
+      <div id="docs" class="bg-bg border-t border-slate-800 relative">
+        <!-- Gradient Divider -->
+        <div class="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-slate-700 to-transparent">
+        </div>
+
+        <div class="max-w-4xl mx-auto p-8 lg:p-16 space-y-16">
+
+          <!-- Intro -->
+          <div class="space-y-4">
+            <h1 class="text-5xl font-extrabold text-white font-display tracking-tight">Documentation</h1>
+            <p class="text-lg text-slate-400 max-w-2xl leading-relaxed">
+              VeloceCSS is a modern, lightweight library of ready-to-use, cross-browser animations. Great for emphasis,
+              home pages, sliders, and attention-guiding hints.
+            </p>
+          </div>
+
+          <!-- Installation -->
+          <section class="space-y-6">
+            <div class="flex items-center gap-4 border-b border-slate-800 pb-2">
+              <h2 class="text-2xl font-bold text-white">Installation</h2>
+              <span class="text-xs font-mono text-slate-500 bg-slate-800 px-2 py-1 rounded">v1.0.0</span>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-6">
+              <div class="space-y-3">
+                <h3 class="text-slate-200 font-bold text-sm uppercase tracking-wide">Install with npm</h3>
+                <div class="code-window group relative">
+                  <div class="window-header">
+                    <div class="window-dots">
+                      <div class="dot dot-red"></div>
+                      <div class="dot dot-yellow"></div>
+                      <div class="dot dot-green"></div>
+                    </div>
+                    <div class="window-title">bash</div>
+                  </div>
+                  <pre
+                    class="p-4 overflow-x-auto text-sm font-mono text-slate-300"><code><span class="text-pink-400">$</span> npm install veloce-css <span class="text-slate-500">--save</span></code></pre>
+                  <button
+                    class="absolute top-12 right-2 p-1.5 bg-slate-700/50 hover:bg-slate-700 rounded opacity-0 group-hover:opacity-100 transition-all hover:text-white"
+                    onclick="copyInstall('npm')">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
+                    </svg>
+                  </button>
+                </div>
+              </div>
+
+              <div class="space-y-3">
+                <h3 class="text-slate-200 font-bold text-sm uppercase tracking-wide">Import via CDN</h3>
+                <div class="code-window group relative">
+                  <div class="window-header">
+                    <div class="window-dots">
+                      <div class="dot dot-red"></div>
+                      <div class="dot dot-yellow"></div>
+                      <div class="dot dot-green"></div>
+                    </div>
+                    <div class="window-title">html</div>
+                  </div>
+                  <pre
+                    class="p-4 overflow-x-auto text-sm font-mono text-slate-300"><code><span class="text-blue-400">&lt;link</span> <span class="text-purple-400">rel</span>=<span class="text-green-400">"stylesheet"</span> <span class="text-purple-400">href</span>=<span class="text-green-400">"..."</span> <span class="text-blue-400">/&gt;</span></code></pre>
+                  <button
+                    class="absolute top-12 right-2 p-1.5 bg-slate-700/50 hover:bg-slate-700 rounded opacity-0 group-hover:opacity-100 transition-all hover:text-white"
+                    onclick="copyInstall('cdn')">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
+                    </svg>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- Basic Usage -->
+          <section class="space-y-6">
+            <h2 class="text-2xl font-bold text-white border-b border-slate-800 pb-2">Basic Usage</h2>
+            <p class="text-slate-400">
+              After installing, add the class <code class="text-accent">vel-animated</code> to an element, along with
+              any of the animation names (don't forget the <code class="text-accent">vel-</code> prefix!):
+            </p>
+            <div class="code-window">
+              <div class="window-header">
+                <div class="window-dots">
+                  <div class="dot dot-red"></div>
+                  <div class="dot dot-yellow"></div>
+                  <div class="dot dot-green"></div>
+                </div>
+                <div class="window-title">html</div>
+              </div>
+              <pre
+                class="p-4 overflow-x-auto text-sm font-mono text-slate-300"><code><span class="text-blue-400">&lt;h1</span> <span class="text-purple-400">class</span>=<span class="text-green-400">"vel-animated vel-bounce"</span><span class="text-blue-400">&gt;</span>An animated element<span class="text-blue-400">&lt;/h1&gt;</span></code></pre>
+            </div>
+          </section>
+
+          <!-- Tailwind Integration -->
+          <section class="space-y-6">
+            <div class="flex items-center gap-3 border-b border-slate-800 pb-2">
+              <h2 class="text-2xl font-bold text-white">Tailwind CSS Integration</h2>
+              <span class="bg-blue-500/10 text-blue-400 text-[10px] font-bold px-2 py-0.5 rounded border border-blue-500/20">Plugin Available</span>
+            </div>
+            
+            <p class="text-slate-400">
+              Use VeloceCSS animations as Tailwind utility classes. Install the official plugin or configure manually.
+            </p>
+
+            <!-- Tabs -->
+            <div class="border-b border-slate-800 flex gap-2">
+              <button onclick="switchTab('tailwind-plugin')" class="tab-btn active px-4 py-2 text-sm font-medium text-white border-b-2 border-accent">
+                Plugin Method
+              </button>
+              <button onclick="switchTab('tailwind-manual')" class="tab-btn px-4 py-2 text-sm font-medium text-slate-400 hover:text-white transition-colors border-b-2 border-transparent">
+                Manual Config
+              </button>
+            </div>
+
+            <!-- Plugin Method Tab -->
+            <div id="tailwind-plugin" class="tab-content">
+              <div class="space-y-4">
+                <div>
+                  <h3 class="text-lg font-bold text-white mb-2">Installation</h3>
+                  <div class="code-window group relative">
+                    <div class="window-header">
+                      <div class="window-dots">
+                        <div class="dot dot-red"></div>
+                        <div class="dot dot-yellow"></div>
+                        <div class="dot dot-green"></div>
+                      </div>
+                      <div class="window-title">bash</div>
+                    </div>
+                    <pre class="p-4 overflow-x-auto text-sm font-mono text-slate-300"><code><span class="text-pink-400">$</span> npm install <span class="text-accent">@veloce/tailwind</span> veloce-css</code></pre>
+                  </div>
+                </div>
+
+                <div>
+                  <h3 class="text-lg font-bold text-white mb-2">Configure Tailwind</h3>
+                  <div class="code-window group relative">
+                    <div class="window-header">
+                      <div class="window-dots">
+                        <div class="dot dot-red"></div>
+                        <div class="dot dot-yellow"></div>
+                        <div class="dot dot-green"></div>
+                      </div>
+                      <div class="window-title">tailwind.config.js</div>
+                    </div>
+                    <pre class="p-4 overflow-x-auto text-sm font-mono text-slate-300"><code><span class="text-purple-400">module.exports</span> = {
+  <span class="text-blue-300">content</span>: [<span class="text-green-400">'./src/**/*.{js,jsx,ts,tsx}'</span>],
+  <span class="text-blue-300">plugins</span>: [
+    <span class="text-yellow-400">require</span>(<span class="text-green-400">'@veloce/tailwind'</span>),
+  ],
+}</code></pre>
+                  </div>
+                </div>
+
+                <div>
+                  <h3 class="text-lg font-bold text-white mb-2">Import CSS</h3>
+                  <div class="code-window group relative">
+                    <div class="window-header">
+                      <div class="window-dots">
+                        <div class="dot dot-red"></div>
+                        <div class="dot dot-yellow"></div>
+                        <div class="dot dot-green"></div>
+                      </div>
+                      <div class="window-title">css</div>
+                    </div>
+                    <pre class="p-4 overflow-x-auto text-sm font-mono text-slate-300"><code><span class="text-purple-400">@import</span> <span class="text-green-400">'veloce-css/dist/veloce.min.css'</span>;</code></pre>
+                  </div>
+                </div>
+
+                <div>
+                  <h3 class="text-lg font-bold text-white mb-2">Usage</h3>
+                  <div class="code-window group relative">
+                    <div class="window-header">
+                      <div class="window-dots">
+                        <div class="dot dot-red"></div>
+                        <div class="dot dot-yellow"></div>
+                        <div class="dot dot-green"></div>
+                      </div>
+                      <div class="window-title">jsx</div>
+                    </div>
+                    <pre class="p-4 overflow-x-auto text-sm font-mono text-slate-300"><code><span class="text-blue-400">&lt;div</span> <span class="text-purple-400">className</span>=<span class="text-green-400">"animate-vel-fadeInUp"</span><span class="text-blue-400">&gt;</span>
+  Content
+<span class="text-blue-400">&lt;/div&gt;</span>
+
+<span class="text-slate-500">// All animations available as animate-vel-{name}</span>
+<span class="text-blue-400">&lt;div</span> <span class="text-purple-400">className</span>=<span class="text-green-400">"animate-vel-bounce animate-vel-pulse"</span><span class="text-blue-400">&gt;</span>
+  Multiple animations
+<span class="text-blue-400">&lt;/div&gt;</span></code></pre>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Manual Config Tab -->
+            <div id="tailwind-manual" class="tab-content hidden">
+              <div class="space-y-4">
+                <p class="text-slate-400">
+                  Extend Tailwind's theme to include VeloceCSS keyframes and animations.
+                </p>
+                <div class="code-window group relative">
+                  <div class="window-header">
+                    <div class="window-dots">
+                      <div class="dot dot-red"></div>
+                      <div class="dot dot-yellow"></div>
+                      <div class="dot dot-green"></div>
+                    </div>
+                    <div class="window-title">tailwind.config.js</div>
+                  </div>
+                  <pre class="p-4 overflow-x-auto text-sm font-mono text-slate-300"><code><span class="text-purple-400">module.exports</span> = {
+  <span class="text-blue-300">theme</span>: {
+    <span class="text-blue-300">extend</span>: {
+      <span class="text-blue-300">keyframes</span>: {
+        <span class="text-green-400">'vel-fadeInUp'</span>: {
+          <span class="text-green-400">'from'</span>: {
+            <span class="text-blue-300">opacity</span>: <span class="text-yellow-400">0</span>,
+            <span class="text-blue-300">transform</span>: <span class="text-green-400">'translate3d(0, 20px, 0)'</span>,
+          },
+          <span class="text-green-400">'to'</span>: {
+            <span class="text-blue-300">opacity</span>: <span class="text-yellow-400">1</span>,
+            <span class="text-blue-300">transform</span>: <span class="text-green-400">'translate3d(0, 0, 0)'</span>,
+          },
+        },
+        <span class="text-slate-500">// Add more keyframes from VeloceCSS...</span>
+      },
+      <span class="text-blue-300">animation</span>: {
+        <span class="text-green-400">'vel-fadeInUp'</span>: <span class="text-green-400">'velFadeInUp 1s ease-out'</span>,
+        <span class="text-slate-500">// Add more animations...</span>
+      },
+    },
+  },
+}</code></pre>
+                </div>
+                <div class="bg-slate-800/50 border-l-4 border-blue-500 p-4 rounded-r-lg">
+                  <p class="text-sm text-slate-300">
+                    <strong>Tip:</strong> For a complete setup, copy all keyframes from <code class="text-accent">dist/veloce.css</code> or use the <code class="text-accent">@veloce/tailwind</code> plugin for automatic integration.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- CSS Properties -->
+          <section class="space-y-6">
+            <h2 class="text-2xl font-bold text-white border-b border-slate-800 pb-2">CSS Custom Properties</h2>
+            <p class="text-slate-400">
+              VeloceCSS uses CSS variables to define duration, delay, and iterations. This makes it extremely flexible.
+            </p>
+
+            <div class="grid md:grid-cols-2 gap-8">
+              <div class="space-y-2">
+                <span class="text-sm font-bold text-white flex items-center gap-2">
+                  <div class="w-2 h-2 rounded-full bg-blue-500"></div>Global Change
+                </span>
+                <div class="code-window">
+                  <div class="window-header">
+                    <div class="window-dots">
+                      <div class="dot dot-red"></div>
+                      <div class="dot dot-yellow"></div>
+                      <div class="dot dot-green"></div>
+                    </div>
+                    <div class="window-title">css</div>
+                  </div>
+                  <pre class="p-4 overflow-x-auto text-sm font-mono text-slate-300"><code><span class="text-yellow-400">:root</span> {
+  <span class="text-blue-300">--vel-duration</span>: <span class="text-green-400">800ms</span>;
+  <span class="text-blue-300">--vel-delay</span>: <span class="text-green-400">0.5s</span>;
+}</code></pre>
+                </div>
+              </div>
+              <div class="space-y-2">
+                <span class="text-sm font-bold text-white flex items-center gap-2">
+                  <div class="w-2 h-2 rounded-full bg-purple-500"></div>Local Change
+                </span>
+                <div class="code-window">
+                  <div class="window-header">
+                    <div class="window-dots">
+                      <div class="dot dot-red"></div>
+                      <div class="dot dot-yellow"></div>
+                      <div class="dot dot-green"></div>
+                    </div>
+                    <div class="window-title">css</div>
+                  </div>
+                  <pre class="p-4 overflow-x-auto text-sm font-mono text-slate-300"><code><span class="text-yellow-400">.my-element</span> {
+  <span class="text-blue-300">--vel-duration</span>: <span class="text-green-400">2s</span>;
+  <span class="text-blue-300">--vel-repeat</span>: <span class="text-purple-400">infinite</span>;
+}</code></pre>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- Utility Classes -->
+          <section class="space-y-6">
+            <h2 class="text-2xl font-bold text-white border-b border-slate-800 pb-2">Utility Classes</h2>
+            <div class="overflow-hidden rounded-xl border border-slate-800">
+              <table class="w-full text-left border-collapse">
+                <thead class="bg-slate-800/50">
+                  <tr class="text-white">
+                    <th class="py-3 px-4 font-bold text-xs uppercase tracking-wider">Class Name</th>
+                    <th class="py-3 px-4 font-bold text-xs uppercase tracking-wider">Effect</th>
+                  </tr>
+                </thead>
+                <tbody class="text-slate-400 text-sm divide-y divide-slate-800/50 bg-slate-900/30">
+                  <tr class="hover:bg-white/5 transition-colors">
+                    <td class="py-3 px-4 font-mono text-accent">.vel-delay-1s</td>
+                    <td class="py-3 px-4">Adds 1s delay</td>
+                  </tr>
+                  <tr class="hover:bg-white/5 transition-colors">
+                    <td class="py-3 px-4 font-mono text-accent">.vel-delay-2s</td>
+                    <td class="py-3 px-4">Adds 2s delay</td>
+                  </tr>
+                  <tr class="hover:bg-white/5 transition-colors">
+                    <td class="py-3 px-4 font-mono text-accent">.vel-fast</td>
+                    <td class="py-3 px-4">Speed: 800ms</td>
+                  </tr>
+                  <tr class="hover:bg-white/5 transition-colors">
+                    <td class="py-3 px-4 font-mono text-accent">.vel-faster</td>
+                    <td class="py-3 px-4">Speed: 500ms</td>
+                  </tr>
+                  <tr class="hover:bg-white/5 transition-colors">
+                    <td class="py-3 px-4 font-mono text-accent">.vel-slow</td>
+                    <td class="py-3 px-4">Speed: 2s</td>
+                  </tr>
+                  <tr class="hover:bg-white/5 transition-colors">
+                    <td class="py-3 px-4 font-mono text-accent">.vel-slower</td>
+                    <td class="py-3 px-4">Speed: 3s</td>
+                  </tr>
+                  <tr class="hover:bg-white/5 transition-colors">
+                    <td class="py-3 px-4 font-mono text-accent">.vel-infinite</td>
+                    <td class="py-3 px-4">Infinite loop</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </section>
+
+          <!-- Frameworks Integration -->
+          <section class="space-y-6">
+            <div class="flex items-center gap-3 border-b border-slate-800 pb-2">
+              <h2 class="text-2xl font-bold text-white">Framework Integration</h2>
+              <span class="bg-purple-500/10 text-purple-400 text-[10px] font-bold px-2 py-0.5 rounded border border-purple-500/20">React • Vue</span>
+            </div>
+            
+            <p class="text-slate-400">
+              Use VeloceCSS with modern frameworks. Examples for React, Vue, and animation libraries.
+            </p>
+
+            <!-- React -->
+            <div class="space-y-4">
+              <h3 class="text-xl font-bold text-white flex items-center gap-2">
+                <svg class="w-6 h-6 text-blue-400" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M14.23 12.004a2.236 2.236 0 0 1-2.235 2.236 2.236 2.236 0 0 1-2.236-2.236 2.236 2.236 0 0 1 2.235-2.236 2.236 2.236 0 0 1 2.236 2.236zm2.648-10.69c-1.346 0-3.107.96-4.489 2.622-1.381-1.662-3.143-2.622-4.489-2.622-3.404 0-6.053 2.4-6.053 5.708 0 3.307 2.649 5.708 6.053 5.708 1.346 0 3.107-.96 4.489-2.622 1.381 1.662 3.143 2.622 4.489 2.622 3.404 0 6.053-2.4 6.053-5.708 0-3.307-2.649-5.708-6.053-5.708zm-4.489 18.46c-1.381 1.662-3.143 2.622-4.489 2.622-3.404 0-6.053-2.4-6.053-5.708 0-3.307 2.649-5.708 6.053-5.708 1.346 0 3.107.96 4.489 2.622-1.381 1.662-3.143 2.622-4.489 2.622-3.404 0-6.053 2.4-6.053 5.708 0 3.307 2.649 5.708 6.053 5.708 1.346 0 3.107-.96 4.489-2.622zm4.489-2.622c1.346 0 3.107-.96 4.489-2.622 1.381 1.662 3.143 2.622 4.489 2.622 3.404 0 6.053-2.4 6.053-5.708 0-3.307-2.649-5.708-6.053-5.708-1.346 0-3.107.96-4.489 2.622 1.381-1.662 3.143-2.622 4.489-2.622 3.404 0 6.053 2.4 6.053 5.708 0 3.307-2.649 5.708-6.053 5.708z"/>
+                </svg>
+                React
+              </h3>
+              
+              <div class="grid md:grid-cols-2 gap-4">
+                <div>
+                  <h4 class="text-sm font-bold text-slate-300 mb-2">Class-based (Simple)</h4>
+                  <div class="code-window">
+                    <div class="window-header">
+                      <div class="window-dots">
+                        <div class="dot dot-red"></div>
+                        <div class="dot dot-yellow"></div>
+                        <div class="dot dot-green"></div>
+                      </div>
+                      <div class="window-title">jsx</div>
+                    </div>
+                    <pre class="p-4 overflow-x-auto text-sm font-mono text-slate-300"><code><span class="text-purple-400">function</span> <span class="text-yellow-400">Card</span>() {
+  <span class="text-purple-400">const</span> [<span class="text-blue-300">isVisible</span>, <span class="text-blue-300">setIsVisible</span>] = <span class="text-yellow-400">useState</span>(<span class="text-purple-400">false</span>);
+  
+  <span class="text-purple-400">return</span> (
+    <span class="text-blue-400">&lt;div</span>
+      <span class="text-purple-400">className</span>=<span class="text-green-400">`vel-animated ${isVisible ? 'vel-fadeInUp' : ''}`</span>
+    <span class="text-blue-400">&gt;</span>
+      Content
+    <span class="text-blue-400">&lt;/div&gt;</span>
+  );
+}</code></pre>
+                  </div>
+                </div>
+                
+                <div>
+                  <h4 class="text-sm font-bold text-slate-300 mb-2">With Framer Motion</h4>
+                  <div class="code-window">
+                    <div class="window-header">
+                      <div class="window-dots">
+                        <div class="dot dot-red"></div>
+                        <div class="dot dot-yellow"></div>
+                        <div class="dot dot-green"></div>
+                      </div>
+                      <div class="window-title">jsx</div>
+                    </div>
+                    <pre class="p-4 overflow-x-auto text-sm font-mono text-slate-300"><code><span class="text-purple-400">import</span> { <span class="text-blue-300">motion</span> } <span class="text-purple-400">from</span> <span class="text-green-400">'framer-motion'</span>;
+
+<span class="text-purple-400">function</span> <span class="text-yellow-400">Card</span>() {
+  <span class="text-purple-400">return</span> (
+    <span class="text-blue-300">&lt;motion.div</span>
+      <span class="text-purple-400">className</span>=<span class="text-green-400">"vel-animated vel-fadeInUp"</span>
+      <span class="text-purple-400">initial</span>={{ <span class="text-blue-300">opacity</span>: <span class="text-yellow-400">0</span> }}
+      <span class="text-purple-400">animate</span>={{ <span class="text-blue-300">opacity</span>: <span class="text-yellow-400">1</span> }}
+    <span class="text-blue-300">&gt;</span>
+      Content
+    <span class="text-blue-300">&lt;/motion.div&gt;</span>
+  );
+}</code></pre>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Vue -->
+            <div class="space-y-4 pt-8">
+              <h3 class="text-xl font-bold text-white flex items-center gap-2">
+                <svg class="w-6 h-6 text-green-400" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M24 1.61l-5.281 13.674-2.864-6.685L24 1.61zM13.29 1.61l-2.864 6.684L5.281 1.61 13.29 1.61zM0 1.61l8.577 8.553L0 19.323V1.61zm13.29 0l8.577 8.553-8.577 8.553V1.61z"/>
+                </svg>
+                Vue.js
+              </h3>
+              
+              <div class="grid md:grid-cols-2 gap-4">
+                <div>
+                  <h4 class="text-sm font-bold text-slate-300 mb-2">Class Binding</h4>
+                  <div class="code-window">
+                    <div class="window-header">
+                      <div class="window-dots">
+                        <div class="dot dot-red"></div>
+                        <div class="dot dot-yellow"></div>
+                        <div class="dot dot-green"></div>
+                      </div>
+                      <div class="window-title">vue</div>
+                    </div>
+                    <pre class="p-4 overflow-x-auto text-sm font-mono text-slate-300"><code><span class="text-blue-400">&lt;template&gt;</span>
+  <span class="text-blue-400">&lt;div</span>
+    <span class="text-purple-400">:class</span>=<span class="text-green-400">"['vel-animated', isVisible ? 'vel-fadeInUp' : '']"</span>
+  <span class="text-blue-400">&gt;</span>
+    Content
+  <span class="text-blue-400">&lt;/div&gt;</span>
+<span class="text-blue-400">&lt;/template&gt;</span>
+
+<span class="text-blue-400">&lt;script setup&gt;</span>
+<span class="text-purple-400">import</span> { <span class="text-blue-300">ref</span> } <span class="text-purple-400">from</span> <span class="text-green-400">'vue'</span>;
+<span class="text-purple-400">const</span> <span class="text-blue-300">isVisible</span> = <span class="text-yellow-400">ref</span>(<span class="text-purple-400">false</span>);
+<span class="text-blue-400">&lt;/script&gt;</span></code></pre>
+                  </div>
+                </div>
+                
+                <div>
+                  <h4 class="text-sm font-bold text-slate-300 mb-2">With Transition Component</h4>
+                  <div class="code-window">
+                    <div class="window-header">
+                      <div class="window-dots">
+                        <div class="dot dot-red"></div>
+                        <div class="dot dot-yellow"></div>
+                        <div class="dot dot-green"></div>
+                      </div>
+                      <div class="window-title">vue</div>
+                    </div>
+                    <pre class="p-4 overflow-x-auto text-sm font-mono text-slate-300"><code><span class="text-blue-400">&lt;template&gt;</span>
+  <span class="text-blue-400">&lt;Transition</span>
+    <span class="text-purple-400">enter-active-class</span>=<span class="text-green-400">"vel-animated vel-fadeInUp"</span>
+    <span class="text-purple-400">leave-active-class</span>=<span class="text-green-400">"vel-animated vel-fadeOut"</span>
+  <span class="text-blue-400">&gt;</span>
+    <span class="text-blue-400">&lt;div</span> <span class="text-purple-400">v-if</span>=<span class="text-green-400">"show"</span><span class="text-blue-400">&gt;</span>
+      Content
+    <span class="text-blue-400">&lt;/div&gt;</span>
+  <span class="text-blue-400">&lt;/Transition&gt;</span>
+<span class="text-blue-400">&lt;/template&gt;</span></code></pre>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- General Tips -->
+            <div class="mt-8 bg-slate-800/50 border-l-4 border-purple-500 p-4 rounded-r-lg">
+              <h4 class="text-sm font-bold text-white mb-2">💡 Pro Tips</h4>
+              <ul class="text-sm text-slate-300 space-y-1 list-disc pl-5">
+                <li>Use <code class="text-accent">useEffect</code> (React) or <code class="text-accent">onMounted</code> (Vue) to trigger animations on mount</li>
+                <li>Combine with state management to control animation timing</li>
+                <li>Use CSS custom properties for dynamic duration: <code class="text-accent">style={{'--vel-animate-duration': '2s'}}</code></li>
+                <li>For complex animations, consider Framer Motion (React) or Vue Transition Groups</li>
+              </ul>
+            </div>
+          </section>
+
+          <!-- Accessibility -->
+          <section class="space-y-6 pb-16">
+            <div class="flex items-center gap-3">
+              <h2 class="text-2xl font-bold text-white">Accessibility & Best Practices</h2>
+              <span
+                class="bg-green-500/10 text-green-500 text-[10px] font-bold px-2 py-0.5 rounded border border-green-500/20 uppercase tracking-widest">Critical</span>
+            </div>
+            <p class="text-slate-400">
+              Animations can greatly improve UX, but overuse can deteriorate it.
+            </p>
+            <div class="bg-slate-800/50 border-l-4 border-accent p-4 rounded-r-lg">
+              <ul class="list-disc pl-5 space-y-2 text-slate-400">
+                <li><strong>Don't animate root elements</strong> (html, body). Wrap your content instead.</li>
+                <li><strong>Avoid infinite animations</strong> unless necessary (loading states).</li>
+                <li><strong>Respect Reduced Motion:</strong> VeloceCSS automatically supports the <code
+                    class="text-accent">prefers-reduced-motion</code> media query. Never disable this feature.</li>
+              </ul>
+            </div>
+          </section>
+
+        </div>
+
+        <!-- Footer -->
+        <footer class="border-t border-slate-800 bg-[#0b1120] py-12 text-center">
+          <div
+            class="w-12 h-12 bg-gradient-to-br from-accent to-pink-600 rounded-xl flex items-center justify-center text-white font-bold font-display mx-auto mb-6 border border-white/10 shadow-lg shadow-accent/20">
+            V</div>
+          <p class="text-slate-500 text-sm mb-2">
+            &copy; 2024 VeloceCSS. Open Source under MIT License.
+          </p>
+          <p class="text-slate-600 text-xs font-mono">
+            Designed with speed & passion.
+          </p>
+        </footer>
+      </div>
+
+    </main>
+  </div>
+
+  <script src="./js/main.js"></script>
+</body>
+
+</html>

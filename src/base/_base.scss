@@ -1,0 +1,41 @@
+// Core base styles for the VeloceCSS animation library.
+// This file defines the `.vel-animated` utility class and
+// accessibility-related rules such as `prefers-reduced-motion`.
+
+@use "variables" as v;
+
+// Base animated class applied to any element that should participate
+// in VeloceCSS animations. Individual animation classes set the
+// concrete `animation-name` and may override duration, delay, etc.
+.vel-animated {
+  // Use transform and opacity where possible to keep animations on the GPU.
+  // This provides a strong hint to the browser that the element will be animated.
+  will-change: transform, opacity;
+
+  // CSS custom properties give consumers an easy way to override values
+  // from plain CSS without needing to recompile the SCSS source.
+  //
+  // Example override in user-land:
+  // .my-component {
+  //   --vel-animate-duration: 750ms;
+  // }
+  --vel-animate-duration: v.$vel-animation-duration;
+  --vel-animate-delay: v.$vel-animation-delay;
+  --vel-animate-timing-function: v.$vel-animation-timing-function;
+
+  // By default no animation is running until a specific animation class is added.
+  animation-duration: var(--vel-animate-duration, v.$vel-animation-duration);
+  animation-delay: var(--vel-animate-delay, v.$vel-animation-delay);
+  animation-timing-function: var(--vel-animate-timing-function, v.$vel-animation-timing-function);
+  animation-fill-mode: both;
+}
+
+// Accessibility: Respect users that prefer reduced motion.
+// For these users, we effectively disable animations by forcing them
+// to complete instantly and only run once.
+@media (prefers-reduced-motion: reduce) {
+  .vel-animated {
+    animation-duration: 1ms !important;
+    animation-iteration-count: 1 !important;
+  }
+}

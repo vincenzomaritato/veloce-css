@@ -1,0 +1,20 @@
+// Fading exits – vel-fadeOut
+// Simple opacity-only exit animation.
+
+@use "../../base/mixins" as m;
+@use "../../base/variables" as *;
+
+@include m.vel-keyframes(velFadeOut) {
+  from {
+    opacity: 1;
+  }
+
+  to {
+    opacity: 0;
+  }
+}
+
+.vel-fadeOut {
+  @include m.vel-animation-base(velFadeOut);
+}
+

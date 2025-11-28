@@ -1,0 +1,23 @@
+// Fading animations – vel-fadeInUpBig
+// Similar to vel-fadeInUp but with a larger travel distance.
+
+@use "../../base/mixins" as m;
+@use "../../base/variables" as *;
+
+@include m.vel-keyframes(velFadeInUpBig) {
+  from {
+    opacity: 0;
+    transform: translate3d(0, $vel-animation-translate-distance-big, 0);
+  }
+
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+.vel-fadeInUpBig {
+  @include m.vel-animation-base(velFadeInUpBig);
+}
+
+

@@ -1,0 +1,24 @@
+// Rotating entrances – vel-rotateInDownRight
+// Element rotates in from bottom-right.
+
+@use "../../base/mixins" as m;
+@use "../../base/variables" as *;
+
+@include m.vel-keyframes(velRotateInDownRight) {
+  from {
+    opacity: 0;
+    transform: rotate3d(0, 0, 1, 45deg);
+    transform-origin: right bottom;
+  }
+
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0) rotate3d(0, 0, 1, 0deg);
+    transform-origin: right bottom;
+  }
+}
+
+.vel-rotateInDownRight {
+  @include m.vel-animation-base(velRotateInDownRight);
+}
+

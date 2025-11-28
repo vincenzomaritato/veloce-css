@@ -1,0 +1,26 @@
+// Attention seekers – vel-pulse
+// Subtle scale pulse to highlight an element.
+
+@use "../../base/mixins" as m;
+@use "../../base/variables" as *;
+
+// Keyframes:
+// - Scale up slightly at 50% using the overshoot factor.
+// - Return to natural size to avoid layout drift.
+@include m.vel-keyframes(velPulse) {
+  from {
+    transform: scale3d(1, 1, 1);
+  }
+
+  50% {
+    transform: scale3d($vel-animation-scale-overshoot, $vel-animation-scale-overshoot, $vel-animation-scale-overshoot);
+  }
+
+  to {
+    transform: scale3d(1, 1, 1);
+  }
+}
+
+.vel-pulse {
+  @include m.vel-animation-base(velPulse);
+}

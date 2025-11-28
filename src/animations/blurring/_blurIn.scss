@@ -1,0 +1,30 @@
+// Modern blur animations – vel-blurIn
+// Apple/Vercel-style blur entrance effect using filter: blur().
+// This is a 2025 trend that Animate.css doesn't have natively.
+
+@use "../../base/mixins" as m;
+@use "../../base/variables" as *;
+
+// Keyframes:
+// - Start with heavy blur (10px) and zero opacity.
+// - End with no blur and full opacity.
+// Using filter: blur() is GPU-accelerated on modern browsers.
+@include m.vel-keyframes(velBlurIn) {
+  from {
+    opacity: 0;
+    filter: blur(10px);
+  }
+
+  to {
+    opacity: 1;
+    filter: blur(0);
+  }
+}
+
+// Class API:
+// - Combine with `.vel-animated` in markup:
+//   <div class="vel-animated vel-blurIn">Content</div>
+.vel-blurIn {
+  @include m.vel-animation-base(velBlurIn);
+}
+

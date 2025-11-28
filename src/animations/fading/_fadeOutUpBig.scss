@@ -1,0 +1,22 @@
+// Fading exits – vel-fadeOutUpBig
+// Element fades out while moving upward (larger distance).
+
+@use "../../base/mixins" as m;
+@use "../../base/variables" as *;
+
+@include m.vel-keyframes(velFadeOutUpBig) {
+  from {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+
+  to {
+    opacity: 0;
+    transform: translate3d(0, -$vel-animation-translate-distance-big, 0);
+  }
+}
+
+.vel-fadeOutUpBig {
+  @include m.vel-animation-base(velFadeOutUpBig);
+}
+

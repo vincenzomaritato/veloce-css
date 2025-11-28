@@ -1,0 +1,21 @@
+// Sliding exits – vel-slideOutRight
+// Element slides out rightward.
+
+@use "../../base/mixins" as m;
+@use "../../base/variables" as *;
+
+@include m.vel-keyframes(velSlideOutRight) {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+
+  to {
+    visibility: hidden;
+    transform: translate3d(100%, 0, 0);
+  }
+}
+
+.vel-slideOutRight {
+  @include m.vel-animation-base(velSlideOutRight);
+}
+

@@ -1,0 +1,35 @@
+// Attention seekers / exits – vel-hinge
+// Dramatic "hinge from the top-left" exit animation.
+
+@use "../../base/mixins" as m;
+
+@include m.vel-keyframes(velHinge) {
+  0% {
+    transform-origin: top left;
+  }
+
+  20%,
+  60% {
+    transform: rotate3d(0, 0, 1, 80deg);
+    transform-origin: top left;
+  }
+
+  40%,
+  80% {
+    transform: rotate3d(0, 0, 1, 60deg);
+    transform-origin: top left;
+    opacity: 1;
+  }
+
+  100% {
+    transform: translate3d(0, 700px, 0);
+    opacity: 0;
+    transform-origin: top left;
+  }
+}
+
+.vel-hinge {
+  @include m.vel-animation-base(velHinge);
+}
+
+

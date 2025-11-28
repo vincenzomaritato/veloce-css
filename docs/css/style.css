@@ -1,0 +1,522 @@
+/* --- Core Simulation Variables --- */
+:root {
+  --vel-duration: 1s;
+  --vel-delay: 0s;
+  --vel-repeat: 1;
+}
+
+.vel-animated {
+  animation-duration: var(--vel-duration);
+  animation-delay: var(--vel-delay);
+  animation-iteration-count: var(--vel-repeat);
+  animation-fill-mode: both;
+}
+
+/* Accessibility Override Simulation Class */
+body.simulate-reduced-motion .vel-animated {
+  animation-duration: 1ms !important;
+  transition-duration: 1ms !important;
+  animation-iteration-count: 1 !important;
+}
+
+/* --- Typography & Base --- */
+body {
+  background-color: #0f172a;
+  /* Dynamic background handled by Tailwind classes in HTML now, or we can keep a fallback */
+}
+
+/* --- Custom Scrollbar --- */
+.custom-scroll::-webkit-scrollbar {
+  width: 6px;
+}
+
+.custom-scroll::-webkit-scrollbar-track {
+  background: #0f172a;
+}
+
+.custom-scroll::-webkit-scrollbar-thumb {
+  background: #334155;
+  border-radius: 3px;
+}
+
+.custom-scroll::-webkit-scrollbar-thumb:hover {
+  background: #475569;
+}
+
+/* --- Glassmorphism --- */
+.glass {
+  background: rgba(15, 23, 42, 0.8);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+/* --- Range Slider Styling --- */
+input[type=range] {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  background: transparent;
+}
+
+input[type=range]:focus {
+  outline: none;
+}
+
+input[type=range]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  height: 16px;
+  width: 16px;
+  border-radius: 50%;
+  background: #f43f5e;
+  cursor: pointer;
+  margin-top: -6px;
+  box-shadow: 0 0 10px rgba(244, 63, 94, 0.5);
+  transition: transform 0.1s ease;
+}
+
+input[type=range]::-webkit-slider-thumb:hover {
+  transform: scale(1.2);
+}
+
+input[type=range]::-webkit-slider-runnable-track {
+  width: 100%;
+  height: 4px;
+  cursor: pointer;
+  background: #334155;
+  border-radius: 2px;
+}
+
+/* --- Docs Typography --- */
+.prose-headings {
+  color: white;
+  font-family: 'Outfit', sans-serif;
+  letter-spacing: -0.02em;
+}
+
+.prose-p {
+  color: #94a3b8;
+  line-height: 1.7;
+}
+
+.prose-code {
+  color: #f43f5e;
+  font-family: 'JetBrains Mono', monospace;
+  background: rgba(244, 63, 94, 0.1);
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-size: 0.9em;
+}
+
+.prose-pre {
+  background: #1e293b !important;
+  border: 1px solid #334155;
+  border-radius: 0.5rem;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  margin: 0 !important;
+  /* Reset margin for window container */
+}
+
+/* --- Code Window Styles --- */
+.code-window {
+  background: #1e293b;
+  border: 1px solid #334155;
+  border-radius: 0.75rem;
+  overflow: hidden;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+.window-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.75rem 1rem;
+  background: #0f172a;
+  border-bottom: 1px solid #334155;
+}
+
+.window-dots {
+  display: flex;
+  gap: 0.375rem;
+}
+
+.dot {
+  width: 0.75rem;
+  height: 0.75rem;
+  border-radius: 50%;
+}
+
+.dot-red {
+  background-color: #ef4444;
+}
+
+.dot-yellow {
+  background-color: #f59e0b;
+}
+
+.dot-green {
+  background-color: #22c55e;
+}
+
+.window-title {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.75rem;
+  color: #64748b;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* Override pre styles when inside code-window */
+.code-window pre {
+  border: none !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  background: transparent !important;
+  margin: 0;
+}
+
+/* --- Micro-interactions --- */
+.nav-btn-click:active {
+  transform: scale(0.95);
+}
+
+.sidebar-item {
+  position: relative;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  min-height: 2.5rem; /* Ensure consistent height */
+  display: flex;
+  align-items: center;
+}
+
+.sidebar-item::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  height: 0;
+  width: 3px;
+  background-color: #f43f5e;
+  border-radius: 0 4px 4px 0;
+  transition: height 0.2s ease;
+}
+
+.sidebar-item:hover {
+  padding-left: 1.25rem;
+  /* 20px */
+  background: rgba(255, 255, 255, 0.03);
+  color: white;
+}
+
+.sidebar-item:hover::before {
+  height: 60%;
+}
+
+.sidebar-item.active {
+  background: rgba(244, 63, 94, 0.1);
+  color: #f43f5e;
+  padding-left: 1.25rem;
+}
+
+.sidebar-item.active::before {
+  height: 100%;
+}
+
+/* Search Input Focus Animation */
+.search-group:focus-within svg {
+  color: #f43f5e;
+  transform: scale(1.1);
+}
+
+/* --- Animations --- */
+
+/* Toast Animation */
+@keyframes toastPop {
+  0% {
+    transform: translateY(20px) scale(0.9);
+    opacity: 0;
+  }
+
+  50% {
+    transform: translateY(-5px) scale(1.02);
+    opacity: 1;
+  }
+
+  100% {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+}
+
+.toast-enter {
+  animation: toastPop 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+
+/* Blob Animation */
+@keyframes blob {
+  0% {
+    transform: translate(0px, 0px) scale(1);
+  }
+
+  33% {
+    transform: translate(30px, -50px) scale(1.1);
+  }
+
+  66% {
+    transform: translate(-20px, 20px) scale(0.9);
+  }
+
+  100% {
+    transform: translate(0px, 0px) scale(1);
+  }
+}
+
+.animate-blob {
+  animation: blob 7s infinite;
+}
+
+/* Keyframes (Subset for Demo) */
+/* Note: In a real app, these come from veloce.css, but we define them here for the 'simulation' logic if needed, 
+   or we rely on the imported library. Since the user provided them in the style block, I'll include them to ensure 
+   the 'simulation' works exactly as requested, overriding or complementing the library. */
+
+@keyframes velFadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+.vel-fadeIn {
+  animation-name: velFadeIn;
+}
+
+@keyframes velFadeInUp {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 50px, 0);
+  }
+
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+.vel-fadeInUp {
+  animation-name: velFadeInUp;
+}
+
+@keyframes velFadeInDown {
+  from {
+    opacity: 0;
+    transform: translate3d(0, -50px, 0);
+  }
+
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+.vel-fadeInDown {
+  animation-name: velFadeInDown;
+}
+
+@keyframes velBounce {
+
+  from,
+  20%,
+  53%,
+  80%,
+  to {
+    animation-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
+    transform: translate3d(0, 0, 0);
+  }
+
+  40%,
+  43% {
+    transform: translate3d(0, -30px, 0);
+  }
+
+  70% {
+    transform: translate3d(0, -15px, 0);
+  }
+
+  90% {
+    transform: translate3d(0, -4px, 0);
+  }
+}
+
+.vel-bounce {
+  animation-name: velBounce;
+  transform-origin: center bottom;
+}
+
+@keyframes velPulse {
+  from {
+    transform: scale3d(1, 1, 1);
+  }
+
+  50% {
+    transform: scale3d(1.05, 1.05, 1.05);
+  }
+
+  to {
+    transform: scale3d(1, 1, 1);
+  }
+}
+
+.vel-pulse {
+  animation-name: velPulse;
+}
+
+@keyframes velShake {
+
+  from,
+  to {
+    transform: translate3d(0, 0, 0);
+  }
+
+  10%,
+  30%,
+  50%,
+  70%,
+  90% {
+    transform: translate3d(-10px, 0, 0);
+  }
+
+  20%,
+  40%,
+  60%,
+  80% {
+    transform: translate3d(10px, 0, 0);
+  }
+}
+
+.vel-shake {
+  animation-name: velShake;
+}
+
+@keyframes velTada {
+  from {
+    transform: scale3d(1, 1, 1);
+  }
+
+  10%,
+  20% {
+    transform: scale3d(0.9, 0.9, 0.9) rotate3d(0, 0, 1, -3deg);
+  }
+
+  30%,
+  50%,
+  70%,
+  90% {
+    transform: scale3d(1.1, 1.1, 1.1) rotate3d(0, 0, 1, 3deg);
+  }
+
+  40%,
+  60%,
+  80% {
+    transform: scale3d(1.1, 1.1, 1.1) rotate3d(0, 0, 1, -3deg);
+  }
+
+  to {
+    transform: scale3d(1, 1, 1);
+  }
+}
+
+.vel-tada {
+  animation-name: velTada;
+}
+
+@keyframes velZoomIn {
+  from {
+    opacity: 0;
+    transform: scale3d(0.3, 0.3, 0.3);
+  }
+
+  50% {
+    opacity: 1;
+  }
+}
+
+.vel-zoomIn {
+  animation-name: velZoomIn;
+}
+
+@keyframes velZoomOut {
+  from {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0;
+    transform: scale3d(0.3, 0.3, 0.3);
+  }
+
+  to {
+    opacity: 0;
+  }
+}
+
+.vel-zoomOut {
+  animation-name: velZoomOut;
+}
+
+@keyframes velHinge {
+  0% {
+    animation-timing-function: ease-in-out;
+  }
+
+  20%,
+  60% {
+    transform: rotate3d(0, 0, 1, 80deg);
+    animation-timing-function: ease-in-out;
+  }
+
+  40%,
+  80% {
+    transform: rotate3d(0, 0, 1, 60deg);
+    animation-timing-function: ease-in-out;
+    opacity: 1;
+  }
+
+  100% {
+    transform: translate3d(0, 700px, 0);
+    opacity: 0;
+  }
+}
+
+.vel-hinge {
+  animation-name: velHinge;
+  transform-origin: top left;
+}
+
+/* --- Tab Styles --- */
+.tab-btn {
+  transition: all 0.2s ease;
+}
+
+.tab-btn.active {
+  color: white;
+  border-bottom-color: #f43f5e;
+}
+
+.tab-content {
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

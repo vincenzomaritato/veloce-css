@@ -1,0 +1,21 @@
+// Sliding entrances – vel-slideInRight
+// Element slides in from right.
+
+@use "../../base/mixins" as m;
+@use "../../base/variables" as *;
+
+@include m.vel-keyframes(velSlideInRight) {
+  from {
+    transform: translate3d(100%, 0, 0);
+    visibility: visible;
+  }
+
+  to {
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+.vel-slideInRight {
+  @include m.vel-animation-base(velSlideInRight);
+}
+

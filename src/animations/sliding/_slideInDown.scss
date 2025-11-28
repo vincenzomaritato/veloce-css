@@ -1,0 +1,21 @@
+// Sliding entrances – vel-slideInDown
+// Element slides in from above.
+
+@use "../../base/mixins" as m;
+@use "../../base/variables" as *;
+
+@include m.vel-keyframes(velSlideInDown) {
+  from {
+    transform: translate3d(0, -100%, 0);
+    visibility: visible;
+  }
+
+  to {
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+.vel-slideInDown {
+  @include m.vel-animation-base(velSlideInDown);
+}
+

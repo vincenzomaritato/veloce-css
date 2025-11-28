@@ -1,0 +1,22 @@
+// Fading exits – vel-fadeOutTopLeft
+// Element fades out to top-left corner.
+
+@use "../../base/mixins" as m;
+@use "../../base/variables" as *;
+
+@include m.vel-keyframes(velFadeOutTopLeft) {
+  from {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+
+  to {
+    opacity: 0;
+    transform: translate3d(-$vel-animation-translate-distance-big, -$vel-animation-translate-distance-big, 0);
+  }
+}
+
+.vel-fadeOutTopLeft {
+  @include m.vel-animation-base(velFadeOutTopLeft);
+}
+

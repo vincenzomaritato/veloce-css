@@ -1,0 +1,21 @@
+// Sliding exits – vel-slideOutDown
+// Element slides out downward.
+
+@use "../../base/mixins" as m;
+@use "../../base/variables" as *;
+
+@include m.vel-keyframes(velSlideOutDown) {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+
+  to {
+    visibility: hidden;
+    transform: translate3d(0, 100%, 0);
+  }
+}
+
+.vel-slideOutDown {
+  @include m.vel-animation-base(velSlideOutDown);
+}
+

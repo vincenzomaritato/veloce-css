@@ -1,0 +1,22 @@
+// Fading exits – vel-fadeOutLeft
+// Element fades out while moving leftward.
+
+@use "../../base/mixins" as m;
+@use "../../base/variables" as *;
+
+@include m.vel-keyframes(velFadeOutLeft) {
+  from {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+
+  to {
+    opacity: 0;
+    transform: translate3d(-$vel-animation-translate-distance, 0, 0);
+  }
+}
+
+.vel-fadeOutLeft {
+  @include m.vel-animation-base(velFadeOutLeft);
+}
+

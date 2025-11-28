@@ -1,0 +1,30 @@
+// Modern blur animations – vel-blurOut
+// Exit animation that blurs out content elegantly.
+// Perfect for modal dismissals or content transitions.
+
+@use "../../base/mixins" as m;
+@use "../../base/variables" as *;
+
+// Keyframes:
+// - Start with no blur and full opacity.
+// - End with heavy blur and zero opacity.
+// Smooth exit effect that feels premium.
+@include m.vel-keyframes(velBlurOut) {
+  from {
+    opacity: 1;
+    filter: blur(0);
+  }
+
+  to {
+    opacity: 0;
+    filter: blur(10px);
+  }
+}
+
+// Class API:
+// - Combine with `.vel-animated` in markup:
+//   <div class="vel-animated vel-blurOut">Content</div>
+.vel-blurOut {
+  @include m.vel-animation-base(velBlurOut);
+}
+

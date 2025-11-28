@@ -1,0 +1,12 @@
+// Attention seekers – vel-pulseFast
+// Faster variant of vel-pulse using the same keyframes.
+
+@use "../../base/mixins" as m;
+
+.vel-pulseFast {
+  // Reuse the velPulse keyframes defined in _pulse.scss.
+  // Only the duration is different from the default.
+  @include m.vel-animation-base(velPulse, 0.5s);
+}
+
+

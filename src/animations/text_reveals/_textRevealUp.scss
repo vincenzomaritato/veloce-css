@@ -1,0 +1,31 @@
+// Text reveal animations – vel-textRevealUp
+// Reveals text from bottom to top using clip-path.
+// Perfect for hero sections and typography-focused designs.
+
+@use "../../base/mixins" as m;
+@use "../../base/variables" as *;
+
+// Keyframes:
+// - Start with clip-path hiding content from bottom.
+// - Reveal content by expanding clip-path upward.
+// Uses clip-path for smooth, GPU-accelerated reveals.
+@include m.vel-keyframes(velTextRevealUp) {
+  from {
+    clip-path: inset(100% 0 0 0);
+    opacity: 0;
+  }
+
+  to {
+    clip-path: inset(0 0 0 0);
+    opacity: 1;
+  }
+}
+
+// Class API:
+// - Combine with `.vel-animated` in markup:
+//   <h1 class="vel-animated vel-textRevealUp">Text</h1>
+// Note: Works best on block-level elements (h1, p, div).
+.vel-textRevealUp {
+  @include m.vel-animation-base(velTextRevealUp);
+}
+

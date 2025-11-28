@@ -1,0 +1,23 @@
+// Rotating exits – vel-rotateOutUpRight
+// Element rotates out to top-right.
+
+@use "../../base/mixins" as m;
+@use "../../base/variables" as *;
+
+@include m.vel-keyframes(velRotateOutUpRight) {
+  from {
+    opacity: 1;
+    transform-origin: right bottom;
+  }
+
+  to {
+    opacity: 0;
+    transform: rotate3d(0, 0, 1, 90deg);
+    transform-origin: right bottom;
+  }
+}
+
+.vel-rotateOutUpRight {
+  @include m.vel-animation-base(velRotateOutUpRight);
+}
+

@@ -1,0 +1,41 @@
+// Modern special animations – vel-swoosh
+// A sleek, elegant replacement for the dated LightSpeed animation.
+// Creates a smooth, fast-moving entrance with a modern feel.
+
+@use "../../base/mixins" as m;
+@use "../../base/variables" as *;
+
+// Keyframes:
+// - Start far to the right, rotated slightly, with zero opacity.
+// - Swiftly move into position with a subtle rotation correction.
+// - End with full opacity and natural position.
+// Uses translate3d and rotate3d for smooth, GPU-accelerated motion.
+@include m.vel-keyframes(velSwoosh) {
+  from {
+    opacity: 0;
+    transform: translate3d(200px, 0, 0) rotate3d(0, 0, 1, -15deg);
+  }
+
+  60% {
+    opacity: 1;
+    transform: translate3d(-10px, 0, 0) rotate3d(0, 0, 1, 5deg);
+  }
+
+  80% {
+    transform: translate3d(5px, 0, 0) rotate3d(0, 0, 1, -2deg);
+  }
+
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0) rotate3d(0, 0, 1, 0deg);
+  }
+}
+
+// Class API:
+// - Combine with `.vel-animated` in markup:
+//   <div class="vel-animated vel-swoosh">Content</div>
+// Perfect for cards, notifications, and dynamic content entrances.
+.vel-swoosh {
+  @include m.vel-animation-base(velSwoosh, 0.8s, cubic-bezier(0.25, 0.46, 0.45, 0.94));
+}
+

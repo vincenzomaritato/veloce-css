@@ -1,0 +1,22 @@
+// Specials – vel-rollIn
+// Element rolls in from left.
+
+@use "../../base/mixins" as m;
+@use "../../base/variables" as *;
+
+@include m.vel-keyframes(velRollIn) {
+  from {
+    opacity: 0;
+    transform: translate3d(-100%, 0, 0) rotate3d(0, 0, 1, -120deg);
+  }
+
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0) rotate3d(0, 0, 1, 0deg);
+  }
+}
+
+.vel-rollIn {
+  @include m.vel-animation-base(velRollIn);
+}
+

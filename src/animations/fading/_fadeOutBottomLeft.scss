@@ -1,0 +1,22 @@
+// Fading exits – vel-fadeOutBottomLeft
+// Element fades out to bottom-left corner.
+
+@use "../../base/mixins" as m;
+@use "../../base/variables" as *;
+
+@include m.vel-keyframes(velFadeOutBottomLeft) {
+  from {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+
+  to {
+    opacity: 0;
+    transform: translate3d(-$vel-animation-translate-distance-big, $vel-animation-translate-distance-big, 0);
+  }
+}
+
+.vel-fadeOutBottomLeft {
+  @include m.vel-animation-base(velFadeOutBottomLeft);
+}
+

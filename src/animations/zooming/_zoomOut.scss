@@ -1,0 +1,23 @@
+// Zooming animations – vel-zoomOut
+// Element scales down and fades out.
+
+@use "../../base/mixins" as m;
+
+// Keyframes:
+// - Start at natural size and fully visible.
+// - End slightly scaled down and transparent.
+@include m.vel-keyframes(velZoomOut) {
+  from {
+    opacity: 1;
+    transform: scale3d(1, 1, 1);
+  }
+
+  to {
+    opacity: 0;
+    transform: scale3d(0.5, 0.5, 0.5);
+  }
+}
+
+.vel-zoomOut {
+  @include m.vel-animation-base(velZoomOut);
+}

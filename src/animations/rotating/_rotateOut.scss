@@ -1,0 +1,23 @@
+// Rotating exits – vel-rotateOut
+// Element rotates out from center.
+
+@use "../../base/mixins" as m;
+@use "../../base/variables" as *;
+
+@include m.vel-keyframes(velRotateOut) {
+  from {
+    opacity: 1;
+    transform-origin: center;
+  }
+
+  to {
+    opacity: 0;
+    transform: rotate3d(0, 0, 1, 200deg);
+    transform-origin: center;
+  }
+}
+
+.vel-rotateOut {
+  @include m.vel-animation-base(velRotateOut);
+}
+

@@ -1,0 +1,26 @@
+// Fading animations – vel-fadeInRight
+// Element fades in while moving horizontally from the right.
+
+@use "../../base/mixins" as m;
+@use "../../base/variables" as *;
+
+// Keyframes:
+// - Start slightly right with zero opacity.
+// - Move to natural position while fading to full opacity.
+@include m.vel-keyframes(velFadeInRight) {
+  from {
+    opacity: 0;
+    transform: translate3d($vel-animation-translate-distance, 0, 0);
+  }
+
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+.vel-fadeInRight {
+  @include m.vel-animation-base(velFadeInRight);
+}
+
+

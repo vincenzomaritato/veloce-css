@@ -1,0 +1,22 @@
+// Bouncing exits – vel-bounceOutLeft
+// Element bounces out leftward.
+
+@use "../../base/mixins" as m;
+@use "../../base/variables" as *;
+
+@include m.vel-keyframes(velBounceOutLeft) {
+  20% {
+    opacity: 1;
+    transform: translate3d(20px, 0, 0) scaleX(1);
+  }
+
+  to {
+    opacity: 0;
+    transform: translate3d(-2000px, 0, 0) scaleX(2);
+  }
+}
+
+.vel-bounceOutLeft {
+  @include m.vel-animation-base(velBounceOutLeft);
+}
+

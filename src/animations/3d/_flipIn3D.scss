@@ -1,0 +1,44 @@
+// Modern 3D animations – vel-flipIn3D
+// A contemporary 3D flip entrance with enhanced perspective.
+// More dramatic and modern than traditional flip animations.
+
+@use "../../base/mixins" as m;
+@use "../../base/variables" as *;
+
+// Keyframes:
+// - Start rotated 90deg on Y-axis (side view) with zero opacity.
+// - Rotate to 0deg while fading in.
+// Uses rotate3d for true 3D transformation with perspective.
+@include m.vel-keyframes(velFlipIn3D) {
+  from {
+    opacity: 0;
+    transform: perspective(1000px) rotate3d(0, 1, 0, 90deg);
+  }
+
+  40% {
+    transform: perspective(1000px) rotate3d(0, 1, 0, -20deg);
+  }
+
+  60% {
+    transform: perspective(1000px) rotate3d(0, 1, 0, 10deg);
+  }
+
+  80% {
+    transform: perspective(1000px) rotate3d(0, 1, 0, -5deg);
+  }
+
+  to {
+    opacity: 1;
+    transform: perspective(1000px) rotate3d(0, 1, 0, 0deg);
+  }
+}
+
+// Class API:
+// - Combine with `.vel-animated` in markup:
+//   <div class="vel-animated vel-flipIn3D">Content</div>
+// Note: Requires a parent with perspective or use transform-style: preserve-3d for best effect.
+.vel-flipIn3D {
+  @include m.vel-animation-base(velFlipIn3D);
+  transform-style: preserve-3d;
+}
+

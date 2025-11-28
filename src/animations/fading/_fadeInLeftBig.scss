@@ -1,0 +1,22 @@
+// Fading entrances – vel-fadeInLeftBig
+// Element fades in from left (larger distance).
+
+@use "../../base/mixins" as m;
+@use "../../base/variables" as *;
+
+@include m.vel-keyframes(velFadeInLeftBig) {
+  from {
+    opacity: 0;
+    transform: translate3d(-$vel-animation-translate-distance-big, 0, 0);
+  }
+
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+.vel-fadeInLeftBig {
+  @include m.vel-animation-base(velFadeInLeftBig);
+}
+

@@ -1,0 +1,35 @@
+// Attention seekers – vel-shakeX
+// Horizontal shake effect (left-right movement).
+
+@use "../../base/mixins" as m;
+@use "../../base/variables" as *;
+
+// Keyframes:
+// - Shake horizontally using translate3d.
+// - Only animates transform for 60fps performance.
+@include m.vel-keyframes(velShakeX) {
+  from,
+  to {
+    transform: translate3d(0, 0, 0);
+  }
+
+  10%,
+  30%,
+  50%,
+  70%,
+  90% {
+    transform: translate3d(-10px, 0, 0);
+  }
+
+  20%,
+  40%,
+  60%,
+  80% {
+    transform: translate3d(10px, 0, 0);
+  }
+}
+
+.vel-shakeX {
+  @include m.vel-animation-base(velShakeX);
+}
+

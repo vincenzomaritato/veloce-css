@@ -1,0 +1,36 @@
+// Attention seekers – vel-heartBeat
+// Heartbeat-like pulse effect.
+
+@use "../../base/mixins" as m;
+@use "../../base/variables" as *;
+
+// Keyframes:
+// - Simulates a heartbeat with scale pulses.
+// - Quick double pulse then pause.
+@include m.vel-keyframes(velHeartBeat) {
+  0% {
+    transform: scale3d(1, 1, 1);
+  }
+
+  14% {
+    transform: scale3d(1.3, 1.3, 1.3);
+  }
+
+  28% {
+    transform: scale3d(1, 1, 1);
+  }
+
+  42% {
+    transform: scale3d(1.3, 1.3, 1.3);
+  }
+
+  70% {
+    transform: scale3d(1, 1, 1);
+  }
+}
+
+.vel-heartBeat {
+  @include m.vel-animation-base(velHeartBeat);
+  animation-timing-function: ease-in-out;
+}
+

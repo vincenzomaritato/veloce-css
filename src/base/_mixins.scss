@@ -1,0 +1,39 @@
+// Helper mixins for defining keyframes and animation utilities in VeloceCSS.
+// These mixins are used by individual animation partials to keep the
+// implementation consistent and easy to read.
+
+@use "variables" as v;
+
+// Mixin to define keyframes with a consistent, readable syntax.
+// Usage:
+// @include vel-keyframes(velFadeIn) {
+//   from { opacity: 0; }
+//   to { opacity: 1; }
+// }
+@mixin vel-keyframes($name) {
+  @keyframes #{$name} {
+    @content;
+  }
+}
+
+// Mixin to create a standard animation declaration for a specific class.
+// This only sets animation-related properties. Base animation behavior
+// such as `will-change` lives in the `.vel-animated` utility class.
+//
+// Usage:
+// .vel-fadeIn {
+//   @include vel-animation-base(velFadeIn);
+// }
+@mixin vel-animation-base(
+  $name,
+  $duration: v.$vel-animation-duration,
+  $timing-function: v.$vel-animation-timing-function,
+  $iteration-count: v.$vel-animation-iteration-count,
+  $fill-mode: both
+) {
+  animation-name: $name;
+  animation-duration: $duration;
+  animation-timing-function: $timing-function;
+  animation-iteration-count: $iteration-count;
+  animation-fill-mode: $fill-mode;
+}

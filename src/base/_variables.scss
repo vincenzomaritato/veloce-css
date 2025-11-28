@@ -1,0 +1,26 @@
+// SCSS variables for VeloceCSS core animation configuration.
+// All durations, distances and timing functions are defined here so users
+// can easily override them in their own builds if desired.
+
+// Default animation duration used by the base `.vel-animated` class.
+$vel-animation-duration: 1s !default;
+
+// Default animation delay (no delay by default).
+$vel-animation-delay: 0s !default;
+
+// Default animation timing function for most entrance / exit animations.
+$vel-animation-timing-function: ease-out !default;
+
+// Default iteration count for attention-seeking animations like shake or pulse.
+$vel-animation-iteration-count: 1 !default;
+
+// Vertical distance for simple entrance animations such as fadeInUp / fadeInDown.
+// Using a variable keeps motion consistent across the library.
+$vel-animation-translate-distance: 20px !default;
+
+// Larger vertical distance for "big" entrance animations that travel
+// farther across the screen (e.g. fadeInUpBig).
+$vel-animation-translate-distance-big: 40px !default;
+
+// Scale "overshoot" factor for bounce/zoom style animations.
+$vel-animation-scale-overshoot: 1.05 !default;

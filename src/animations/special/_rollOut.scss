@@ -1,0 +1,21 @@
+// Specials – vel-rollOut
+// Element rolls out to right.
+
+@use "../../base/mixins" as m;
+@use "../../base/variables" as *;
+
+@include m.vel-keyframes(velRollOut) {
+  from {
+    opacity: 1;
+  }
+
+  to {
+    opacity: 0;
+    transform: translate3d(100%, 0, 0) rotate3d(0, 0, 1, 120deg);
+  }
+}
+
+.vel-rollOut {
+  @include m.vel-animation-base(velRollOut);
+}
+

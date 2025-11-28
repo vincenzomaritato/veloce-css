@@ -1,0 +1,24 @@
+// Rotating entrances – vel-rotateIn
+// Element rotates in from center.
+
+@use "../../base/mixins" as m;
+@use "../../base/variables" as *;
+
+@include m.vel-keyframes(velRotateIn) {
+  from {
+    opacity: 0;
+    transform: rotate3d(0, 0, 1, -200deg);
+    transform-origin: center;
+  }
+
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0) rotate3d(0, 0, 1, 0deg);
+    transform-origin: center;
+  }
+}
+
+.vel-rotateIn {
+  @include m.vel-animation-base(velRotateIn);
+}
+

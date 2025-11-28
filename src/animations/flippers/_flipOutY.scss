@@ -1,0 +1,28 @@
+// Flippers – vel-flipOutY
+// Element flips out on Y-axis.
+
+@use "../../base/mixins" as m;
+@use "../../base/variables" as *;
+
+@include m.vel-keyframes(velFlipOutY) {
+  from {
+    transform: perspective(400px);
+  }
+
+  30% {
+    transform: perspective(400px) rotate3d(0, 1, 0, -15deg);
+    opacity: 1;
+  }
+
+  to {
+    transform: perspective(400px) rotate3d(0, 1, 0, 90deg);
+    opacity: 0;
+  }
+}
+
+.vel-flipOutY {
+  @include m.vel-animation-base(velFlipOutY);
+  animation-duration: 0.75s;
+  backface-visibility: visible;
+}
+

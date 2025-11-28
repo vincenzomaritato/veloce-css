@@ -1,0 +1,37 @@
+// Flippers – vel-flipInY
+// Element flips in on Y-axis.
+
+@use "../../base/mixins" as m;
+@use "../../base/variables" as *;
+
+@include m.vel-keyframes(velFlipInY) {
+  from {
+    transform: perspective(400px) rotate3d(0, 1, 0, 90deg);
+    animation-timing-function: ease-in;
+    opacity: 0;
+  }
+
+  40% {
+    transform: perspective(400px) rotate3d(0, 1, 0, -20deg);
+    animation-timing-function: ease-in;
+  }
+
+  60% {
+    transform: perspective(400px) rotate3d(0, 1, 0, 10deg);
+    opacity: 1;
+  }
+
+  80% {
+    transform: perspective(400px) rotate3d(0, 1, 0, -5deg);
+  }
+
+  to {
+    transform: perspective(400px) rotate3d(0, 1, 0, 0deg);
+  }
+}
+
+.vel-flipInY {
+  @include m.vel-animation-base(velFlipInY);
+  backface-visibility: visible;
+}
+

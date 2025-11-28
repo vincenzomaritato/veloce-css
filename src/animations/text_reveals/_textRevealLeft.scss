@@ -1,0 +1,31 @@
+// Text reveal animations – vel-textRevealLeft
+// Reveals text from right to left (like a typewriter in reverse).
+// Great for headlines and call-to-action text.
+
+@use "../../base/mixins" as m;
+@use "../../base/variables" as *;
+
+// Keyframes:
+// - Start with clip-path hiding content from right.
+// - Reveal content by expanding clip-path leftward.
+// Creates a smooth horizontal reveal effect.
+@include m.vel-keyframes(velTextRevealLeft) {
+  from {
+    clip-path: inset(0 100% 0 0);
+    opacity: 0;
+  }
+
+  to {
+    clip-path: inset(0 0 0 0);
+    opacity: 1;
+  }
+}
+
+// Class API:
+// - Combine with `.vel-animated` in markup:
+//   <h1 class="vel-animated vel-textRevealLeft">Text</h1>
+// Note: Works best on block-level elements (h1, p, div).
+.vel-textRevealLeft {
+  @include m.vel-animation-base(velTextRevealLeft);
+}
+

@@ -1,0 +1,22 @@
+// Fading entrances – vel-fadeInTopLeft
+// Element fades in from top-left corner.
+
+@use "../../base/mixins" as m;
+@use "../../base/variables" as *;
+
+@include m.vel-keyframes(velFadeInTopLeft) {
+  from {
+    opacity: 0;
+    transform: translate3d(-$vel-animation-translate-distance-big, -$vel-animation-translate-distance-big, 0);
+  }
+
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+.vel-fadeInTopLeft {
+  @include m.vel-animation-base(velFadeInTopLeft);
+}
+

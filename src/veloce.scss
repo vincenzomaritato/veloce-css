@@ -1,0 +1,136 @@
+// Main entry point for the VeloceCSS animation library.
+// This file imports base configuration and all animation modules.
+// It is compiled to CSS and consumed by end users and the docs site.
+
+@use "base/variables";
+@use "base/mixins";
+@use "base/base";
+
+// Animation categories (further partials will be added here)
+
+// Fading
+@use "animations/fading/fadeIn";
+@use "animations/fading/fadeInUp";
+@use "animations/fading/fadeInDown";
+@use "animations/fading/fadeInLeft";
+@use "animations/fading/fadeInRight";
+@use "animations/fading/fadeInUpBig";
+@use "animations/fading/fadeInDownBig";
+@use "animations/fading/fadeInLeftBig";
+@use "animations/fading/fadeInRightBig";
+@use "animations/fading/fadeInTopLeft";
+@use "animations/fading/fadeInTopRight";
+@use "animations/fading/fadeInBottomLeft";
+@use "animations/fading/fadeInBottomRight";
+@use "animations/fading/fadeOut";
+@use "animations/fading/fadeOutUp";
+@use "animations/fading/fadeOutDown";
+@use "animations/fading/fadeOutLeft";
+@use "animations/fading/fadeOutRight";
+@use "animations/fading/fadeOutUpBig";
+@use "animations/fading/fadeOutDownBig";
+@use "animations/fading/fadeOutLeftBig";
+@use "animations/fading/fadeOutRightBig";
+@use "animations/fading/fadeOutTopLeft";
+@use "animations/fading/fadeOutTopRight";
+@use "animations/fading/fadeOutBottomLeft";
+@use "animations/fading/fadeOutBottomRight";
+
+// Bouncing
+@use "animations/bouncing/bounce";
+@use "animations/bouncing/bounceIn";
+@use "animations/bouncing/bounceInDown";
+@use "animations/bouncing/bounceInLeft";
+@use "animations/bouncing/bounceInRight";
+@use "animations/bouncing/bounceInUp";
+@use "animations/bouncing/bounceOut";
+@use "animations/bouncing/bounceOutDown";
+@use "animations/bouncing/bounceOutLeft";
+@use "animations/bouncing/bounceOutRight";
+@use "animations/bouncing/bounceOutUp";
+
+// Zooming
+@use "animations/zooming/zoomIn";
+@use "animations/zooming/zoomOut";
+@use "animations/zooming/zoomInDown";
+@use "animations/zooming/zoomInLeft";
+@use "animations/zooming/zoomInRight";
+@use "animations/zooming/zoomInUp";
+@use "animations/zooming/zoomOutDown";
+@use "animations/zooming/zoomOutLeft";
+@use "animations/zooming/zoomOutRight";
+@use "animations/zooming/zoomOutUp";
+
+// Attention seekers
+@use "animations/attention_seekers/pulse";
+@use "animations/attention_seekers/pulseSlow";
+@use "animations/attention_seekers/pulseFast";
+@use "animations/attention_seekers/rubberBand";
+@use "animations/attention_seekers/wobble";
+@use "animations/attention_seekers/hinge";
+@use "animations/attention_seekers/flash";
+@use "animations/attention_seekers/shakeX";
+@use "animations/attention_seekers/shakeY";
+@use "animations/attention_seekers/headShake";
+@use "animations/attention_seekers/swing";
+@use "animations/attention_seekers/tada";
+@use "animations/attention_seekers/jello";
+@use "animations/attention_seekers/heartBeat";
+
+// Back entrances/exits
+@use "animations/back/backInDown";
+@use "animations/back/backInLeft";
+@use "animations/back/backInRight";
+@use "animations/back/backInUp";
+@use "animations/back/backOutDown";
+@use "animations/back/backOutLeft";
+@use "animations/back/backOutRight";
+@use "animations/back/backOutUp";
+
+// Modern blurring (2025 trend - Apple/Vercel style)
+@use "animations/blurring/blurIn";
+@use "animations/blurring/blurInUp";
+@use "animations/blurring/blurOut";
+
+// Text reveals (clip-path based)
+@use "animations/text_reveals/textRevealUp";
+@use "animations/text_reveals/textRevealDown";
+@use "animations/text_reveals/textRevealLeft";
+
+// Modern 3D effects
+@use "animations/3d/flipIn3D";
+
+// Special modern animations
+@use "animations/special/swoosh";
+@use "animations/special/jackInTheBox";
+@use "animations/special/rollIn";
+@use "animations/special/rollOut";
+
+// Flippers
+@use "animations/flippers/flip";
+@use "animations/flippers/flipInX";
+@use "animations/flippers/flipInY";
+@use "animations/flippers/flipOutX";
+@use "animations/flippers/flipOutY";
+
+// Rotating
+@use "animations/rotating/rotateIn";
+@use "animations/rotating/rotateInDownLeft";
+@use "animations/rotating/rotateInDownRight";
+@use "animations/rotating/rotateInUpLeft";
+@use "animations/rotating/rotateInUpRight";
+@use "animations/rotating/rotateOut";
+@use "animations/rotating/rotateOutDownLeft";
+@use "animations/rotating/rotateOutDownRight";
+@use "animations/rotating/rotateOutUpLeft";
+@use "animations/rotating/rotateOutUpRight";
+
+// Sliding
+@use "animations/sliding/slideInDown";
+@use "animations/sliding/slideInLeft";
+@use "animations/sliding/slideInRight";
+@use "animations/sliding/slideInUp";
+@use "animations/sliding/slideOutDown";
+@use "animations/sliding/slideOutLeft";
+@use "animations/sliding/slideOutRight";
+@use "animations/sliding/slideOutUp";

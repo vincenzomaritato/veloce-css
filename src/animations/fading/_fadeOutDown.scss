@@ -1,0 +1,22 @@
+// Fading exits – vel-fadeOutDown
+// Element fades out while moving downward.
+
+@use "../../base/mixins" as m;
+@use "../../base/variables" as *;
+
+@include m.vel-keyframes(velFadeOutDown) {
+  from {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+
+  to {
+    opacity: 0;
+    transform: translate3d(0, $vel-animation-translate-distance, 0);
+  }
+}
+
+.vel-fadeOutDown {
+  @include m.vel-animation-base(velFadeOutDown);
+}
+

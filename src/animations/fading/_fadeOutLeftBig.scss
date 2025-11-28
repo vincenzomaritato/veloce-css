@@ -1,0 +1,22 @@
+// Fading exits – vel-fadeOutLeftBig
+// Element fades out while moving leftward (larger distance).
+
+@use "../../base/mixins" as m;
+@use "../../base/variables" as *;
+
+@include m.vel-keyframes(velFadeOutLeftBig) {
+  from {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+
+  to {
+    opacity: 0;
+    transform: translate3d(-$vel-animation-translate-distance-big, 0, 0);
+  }
+}
+
+.vel-fadeOutLeftBig {
+  @include m.vel-animation-base(velFadeOutLeftBig);
+}
+

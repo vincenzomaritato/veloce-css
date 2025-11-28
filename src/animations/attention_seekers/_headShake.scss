@@ -1,0 +1,40 @@
+// Attention seekers – vel-headShake
+// Subtle head shake effect with rotation.
+
+@use "../../base/mixins" as m;
+@use "../../base/variables" as *;
+
+// Keyframes:
+// - Subtle rotation shake (like shaking head "no").
+// - Uses rotate3d for smooth GPU-accelerated rotation.
+@include m.vel-keyframes(velHeadShake) {
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+
+  6.5% {
+    transform: translate3d(-6px, 0, 0) rotate3d(0, 0, 1, -9deg);
+  }
+
+  18.5% {
+    transform: translate3d(5px, 0, 0) rotate3d(0, 0, 1, 7deg);
+  }
+
+  31.5% {
+    transform: translate3d(-3px, 0, 0) rotate3d(0, 0, 1, -5deg);
+  }
+
+  43.5% {
+    transform: translate3d(2px, 0, 0) rotate3d(0, 0, 1, 3deg);
+  }
+
+  50% {
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+.vel-headShake {
+  @include m.vel-animation-base(velHeadShake);
+  animation-timing-function: ease-in-out;
+}
+

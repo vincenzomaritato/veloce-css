@@ -1,0 +1,30 @@
+// Back entrances – vel-backInDown
+// Element enters from below with a slight backward motion.
+
+@use "../../base/mixins" as m;
+@use "../../base/variables" as *;
+
+// Keyframes:
+// - Starts below with slight backward motion.
+// - Moves forward and up to final position.
+@include m.vel-keyframes(velBackInDown) {
+  0% {
+    opacity: 0;
+    transform: translate3d(0, 2000px, 0) scale3d(0.7, 0.7, 0.7);
+  }
+
+  80% {
+    transform: translate3d(0, 0, 0) scale3d(0.7, 0.7, 0.7);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale3d(1, 1, 1);
+  }
+}
+
+.vel-backInDown {
+  @include m.vel-animation-base(velBackInDown);
+  animation-timing-function: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+

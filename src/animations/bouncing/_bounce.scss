@@ -1,0 +1,37 @@
+// Bouncing animations – vel-bounce
+// Attention-grabbing vertical bounce using translate3d for GPU acceleration.
+
+@use "../../base/mixins" as m;
+@use "../../base/variables" as *;
+
+// Keyframes:
+// - Multiple peaks with decreasing height to simulate a natural bounce.
+// - Always return to translate3d(0, 0, 0) to avoid visual drift.
+@include m.vel-keyframes(velBounce) {
+  from,
+  20%,
+  53%,
+  80%,
+  to {
+    transform: translate3d(0, 0, 0);
+  }
+
+  40%,
+  43% {
+    transform: translate3d(0, -1.5 * $vel-animation-translate-distance, 0);
+  }
+
+  70% {
+    transform: translate3d(0, -0.75 * $vel-animation-translate-distance, 0);
+  }
+
+  90% {
+    transform: translate3d(0, -0.25 * $vel-animation-translate-distance, 0);
+  }
+}
+
+.vel-bounce {
+  // Single bounce by default; consumers can override iteration-count
+  // using inline styles or custom classes if they need looping behavior.
+  @include m.vel-animation-base(velBounce);
+}

@@ -1,0 +1,32 @@
+// Modern blur animations – vel-blurInUp
+// Combines blur effect with upward motion for a premium feel.
+// Popular in modern landing pages (Apple, Vercel style).
+
+@use "../../base/mixins" as m;
+@use "../../base/variables" as *;
+
+// Keyframes:
+// - Start below with blur and zero opacity.
+// - Move up while blur decreases and opacity increases.
+// Only animates opacity, filter, and transform for 60fps performance.
+@include m.vel-keyframes(velBlurInUp) {
+  from {
+    opacity: 0;
+    filter: blur(10px);
+    transform: translate3d(0, $vel-animation-translate-distance, 0);
+  }
+
+  to {
+    opacity: 1;
+    filter: blur(0);
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+// Class API:
+// - Combine with `.vel-animated` in markup:
+//   <div class="vel-animated vel-blurInUp">Content</div>
+.vel-blurInUp {
+  @include m.vel-animation-base(velBlurInUp);
+}
+

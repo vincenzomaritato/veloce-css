@@ -1,0 +1,23 @@
+// Rotating exits – vel-rotateOutDownLeft
+// Element rotates out to bottom-left.
+
+@use "../../base/mixins" as m;
+@use "../../base/variables" as *;
+
+@include m.vel-keyframes(velRotateOutDownLeft) {
+  from {
+    opacity: 1;
+    transform-origin: left bottom;
+  }
+
+  to {
+    opacity: 0;
+    transform: rotate3d(0, 0, 1, 45deg);
+    transform-origin: left bottom;
+  }
+}
+
+.vel-rotateOutDownLeft {
+  @include m.vel-animation-base(velRotateOutDownLeft);
+}
+

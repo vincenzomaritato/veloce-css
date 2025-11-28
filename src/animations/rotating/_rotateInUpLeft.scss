@@ -1,0 +1,24 @@
+// Rotating entrances – vel-rotateInUpLeft
+// Element rotates in from top-left.
+
+@use "../../base/mixins" as m;
+@use "../../base/variables" as *;
+
+@include m.vel-keyframes(velRotateInUpLeft) {
+  from {
+    opacity: 0;
+    transform: rotate3d(0, 0, 1, 45deg);
+    transform-origin: left bottom;
+  }
+
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0) rotate3d(0, 0, 1, 0deg);
+    transform-origin: left bottom;
+  }
+}
+
+.vel-rotateInUpLeft {
+  @include m.vel-animation-base(velRotateInUpLeft);
+}
+

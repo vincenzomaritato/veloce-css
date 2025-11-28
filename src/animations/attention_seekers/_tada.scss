@@ -1,0 +1,41 @@
+// Attention seekers – vel-tada
+// Celebration effect with scale and rotation.
+
+@use "../../base/mixins" as m;
+@use "../../base/variables" as *;
+
+// Keyframes:
+// - Scale and rotate for a "ta-da!" celebration effect.
+// - Uses scale3d and rotate3d for smooth animation.
+@include m.vel-keyframes(velTada) {
+  from {
+    transform: scale3d(1, 1, 1);
+  }
+
+  10%,
+  20% {
+    transform: scale3d(0.9, 0.9, 0.9) rotate3d(0, 0, 1, -3deg);
+  }
+
+  30%,
+  50%,
+  70%,
+  90% {
+    transform: scale3d(1.1, 1.1, 1.1) rotate3d(0, 0, 1, 3deg);
+  }
+
+  40%,
+  60%,
+  80% {
+    transform: scale3d(1.1, 1.1, 1.1) rotate3d(0, 0, 1, -3deg);
+  }
+
+  to {
+    transform: scale3d(1, 1, 1);
+  }
+}
+
+.vel-tada {
+  @include m.vel-animation-base(velTada);
+}
+

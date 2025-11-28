@@ -1,0 +1,21 @@
+<svg id="primary-logo-svg" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <defs>
+                            <linearGradient id="veloceGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" stop-color="#f43f5e"/> <!-- Rose 500 -->
+                                <stop offset="100%" stop-color="#ec4899"/> <!-- Pink 500 -->
+                            </linearGradient>
+                            <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+                                <feGaussianBlur stdDeviation="15" result="blur"/>
+                                <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+                            </filter>
+                        </defs>
+                        
+                        <!-- Background Glow (Optional) -->
+                        <path d="M160 96 L280 96 L416 96 L320 256 L416 256 L160 480 L220 288 L96 288 L160 96 Z" fill="#f43f5e" fill-opacity="0.2" filter="url(#glow)"/>
+
+                        <!-- Main Shape: Abstract Fast V / Lightning Bolt -->
+                        <path d="M160 64 H320 L240 224 H384 L128 480 L192 256 H64 L160 64 Z" fill="url(#veloceGradient)" stroke="white" stroke-width="0"/>
+                        
+                        <!-- Speed Cut (Negative Space Detail) -->
+                        <path d="M220 64 L260 64 L200 180 L160 180 L220 64 Z" fill="rgba(255,255,255,0.15)"/>
+                    </svg>

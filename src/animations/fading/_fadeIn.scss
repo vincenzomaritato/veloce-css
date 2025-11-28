@@ -1,0 +1,26 @@
+// Fading animations – vel-fadeIn
+// This is a simple opacity-only entrance animation.
+// It is intentionally minimal to keep it as cheap as possible to render.
+
+@use "../../base/mixins" as m;
+
+// Keyframes:
+// - Start fully transparent.
+// - End fully opaque.
+// Using only opacity keeps this animation extremely performant.
+@include m.vel-keyframes(velFadeIn) {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+// Class API:
+// - Combine with `.vel-animated` in markup:
+//   <div class="vel-animated vel-fadeIn"></div>
+.vel-fadeIn {
+  @include m.vel-animation-base(velFadeIn);
+}
